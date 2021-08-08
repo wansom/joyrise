@@ -107,7 +107,7 @@
 					</a-button>
 				</div>
 			</div>
-			<!-- / Sidebar Footer -->
+			<!-- / Sidebar Footer --> 
 
 	</a-layout-sider>
 	<!-- / Main Sidebar -->
