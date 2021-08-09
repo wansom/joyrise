@@ -16,7 +16,7 @@
           style="display: flex; align-items: center; justify-content: flex-end"
         >
           <a-radio-group v-model="projectHeaderBtns" size="small">
-            <a-radio-button value="all">ALL</a-radio-button>
+            <a-radio-button value="all" @click="convert">ALL</a-radio-button>
             <a-radio-button value="online">CLASS 1</a-radio-button>
             <a-radio-button value="stores">CLASS 2</a-radio-button>
             <a-radio-button value="stores">CLASS 3</a-radio-button>
@@ -68,14 +68,20 @@
           make sure all excel files are rightly formatted
         </p>
       </a-upload-dragger>
-    
+      <input type="file" @change="uploadFile" ref="file" />
+      <form enctype="multipart/form-data">
+        <input type="file" @change="onFileChange" />
+      </form>
     </div>
   </a-card>
   <!-- / Projects Table Card -->
 </template>
 
 <script>
-const csv=require("csvtojson");
+const csv = require("csvtojson/v2");
+const csvToJson = require("convert-csv-to-json");
+const csv1 = require("csv-parser");
+const fs = require("fs");
 export default {
   props: {
     data: {
@@ -91,34 +97,52 @@ export default {
     return {
       // Active button for the "Projects" table's card header radio button group.
       projectHeaderBtns: "all",
-      file:''
+      file: "",
+      results: [],
+      fileinput:""
     };
   },
   methods: {
-   handleChange(info) {
-      const status = info.file.status;
-      if (status !== "uploading") {
-        console.log(info.file, info.fileList);
-      }
-      if (status === "done") {
-        this.$message.success(`${info.file.name} file uploaded successfully.`);
-      csv()
-.fromFile(info.file)
-.then((jsonObj)=>{
-    console.log(jsonObj);
-    /**
-     * [
-     * 	{a:"1", b:"2", c:"3"},
-     * 	{a:"4", b:"5". c:"6"}
-     * ]
-     */ 
-}).catch((e)=>{
-  console.log(e)
-})
-      } else if (status === "error") {
-        this.$message.error(`${info.file.name} file upload failed.`);
-      }
+  onFileChange(e) {
+      var files = e.target.files || e.dataTransfer.files;
+      if (!files.length) return;
+      this.createInput(files[0]);
     },
+    createInput(file) {
+      let promise = new Promise((resolve, reject) => {
+        var reader = new FileReader();
+        var vm = this;
+        reader.onload = e => {
+          resolve((vm.fileinput = reader.result));
+        };
+        reader.readAsText(file);
+      });
+
+      promise.then(
+        result => {
+          /* handle a successful result */
+        var lines = result.split("\n");
+    var newresult = [];
+    var headers=lines[0].split(",");
+    for(var i=1;i<lines.length;i++){
+      var obj = {};
+      var currentline=lines[i].split(",");
+      for(var j=0;j<headers.length;j++){
+        obj[headers[j]] = currentline[j];
+      }
+      newresult.push(obj);
+      }  
+      //return result; //JavaScript object
+       //JSON
+    console.log(newresult);
+        },
+        error => {
+          /* handle an error */ 
+          console.log(error);
+        }
+      );
+    }
+
   },
 };
 </script>
