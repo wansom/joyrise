@@ -75,6 +75,7 @@
 </template>
 
 <script>
+const csv=require("csvtojson");
 export default {
   props: {
     data: {
@@ -90,16 +91,30 @@ export default {
     return {
       // Active button for the "Projects" table's card header radio button group.
       projectHeaderBtns: "all",
+      file:''
     };
   },
   methods: {
-    handleChange(info) {
+   handleChange(info) {
       const status = info.file.status;
       if (status !== "uploading") {
         console.log(info.file, info.fileList);
       }
       if (status === "done") {
         this.$message.success(`${info.file.name} file uploaded successfully.`);
+      csv()
+.fromFile(info.file)
+.then((jsonObj)=>{
+    console.log(jsonObj);
+    /**
+     * [
+     * 	{a:"1", b:"2", c:"3"},
+     * 	{a:"4", b:"5". c:"6"}
+     * ]
+     */ 
+}).catch((e)=>{
+  console.log(e)
+})
       } else if (status === "error") {
         this.$message.error(`${info.file.name} file upload failed.`);
       }
