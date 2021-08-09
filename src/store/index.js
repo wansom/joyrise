@@ -42,6 +42,8 @@ export default new Vuex.Store({
             address: payload.address
       })
     },
+    //get students
+    
      /**
      * Profile Section Starts Here
      */

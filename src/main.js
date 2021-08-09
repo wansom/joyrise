@@ -25,6 +25,7 @@ import router from './router'
 import './scss/app.scss';
 
 import store from './store'
+import './registerServiceWorker'
 
 Vue.use(Antd);
 
