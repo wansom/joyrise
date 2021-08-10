@@ -16,25 +16,22 @@
           style="display: flex; align-items: center; justify-content: flex-end"
         >
           <a-radio-group v-model="projectHeaderBtns" size="small">
-            <a-radio-button value="all" @click="convert">ALL</a-radio-button>
-            <a-radio-button value="online">CLASS 1</a-radio-button>
-            <a-radio-button value="stores">CLASS 2</a-radio-button>
-            <a-radio-button value="stores">CLASS 3</a-radio-button>
-            <a-radio-button value="stores">CLASS 4</a-radio-button>
-            <a-radio-button value="stores">CLASS 5</a-radio-button>
+            <a-radio-button value="all" @click="filterClasses">ALL</a-radio-button>
+            <a-radio-button  v-for="grade in grades" :key="grade.id" :value="grade.id"> {{grade.grade}} </a-radio-button>
+           
           </a-radio-group>
         </a-col>
       </a-row>
     </template>
-    <a-table :columns="columns" :data-source="data" :pagination="true">
+    <a-table :columns="columns" :data-source="data" :pagination="true" rowKey="id">
       <template slot="number" slot-scope="number">
         <h6 class="m-0">
           {{ number }}
         </h6>
       </template>
-      <template slot="name" slot-scope="name">
+      <template slot="NAME" slot-scope="NAME">
         <h6 class="m-0">
-          {{ name.name }}
+          {{ NAME}}
         </h6>
       </template>
 
@@ -75,6 +72,8 @@
 
 <script>
 import * as fb from "@/firebase.js";
+
+import {mapState} from "vuex";
 export default {
   props: {
     data: {
@@ -85,6 +84,7 @@ export default {
       type: Array,
       default: () => [],
     },
+    rowKey:String
   },
   data() {
     return {
@@ -155,5 +155,12 @@ export default {
     }
 
   },
+  		  created(){
+    this.$store.dispatch("getClasses")
+  },
+  computed:{
+    ...mapState(["grades"])
+  }
+
 };
 </script>

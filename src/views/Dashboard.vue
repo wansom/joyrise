@@ -49,8 +49,9 @@
 				
 				<!-- Projects Table Card -->
 				<CardProjectTable
-					:data="tableData"
+					:data="students"
 					:columns="tableColumns"
+					:rowKey="students.id"
 				></CardProjectTable>
 				<!-- / Projects Table Card -->
 				
@@ -97,10 +98,11 @@
 			dataIndex: 'number',
 			scopedSlots: { customRender: 'number' },
 			width: 300,
+			
 		},
 		{
 			title: 'NAME',
-			dataIndex: 'name',
+			dataIndex: 'NAME',
 			scopedSlots: { customRender: 'name' },
 		},
 		{
@@ -110,7 +112,7 @@
 		},
 		{
 			title: 'BALANCE',
-			dataIndex: 'budget',
+			dataIndex: 'Paid',
 			class: 'font-bold text-muted text-sm',
 		},
 		{
@@ -120,51 +122,7 @@
 		},
 	];
 
-	// "Projects" table list of rows and their properties.
-	const tableData = [
-		{
-			key: '1',
-			name: {
-				name: 'Warren ochieng',
-				logo: 'images/logos/logo-shopify.svg',
-			},
-			number: 1,
-			level:2,
-			budget: '$14,000',
-			completion: 60,
-		},
-		{
-			key: '2',
-			name: {
-				name: 'Timothy Nasibi',
-				logo: 'images/logos/logo-atlassian.svg',
-			},
-			number: 1,
-			level:3,
-			budget: '$3,000',
-			completion: 10,
-		},
-		{
-			key: '3',
-			name: {
-				name: 'Sunday manara',
-				logo: 'images/logos/logo-slack.svg',
-			},
-			number: 3,
-			level:2,
-			budget: 'Not Set',
-			completion: {
-				label: '100',
-				status: 'success',
-				value: 100,
-			},
-		},
-
-		
-
-
-	];
-
+import {mapState} from "vuex";
 	export default ({
 		components: {
 			CardBarChart,
@@ -179,13 +137,18 @@
 		data() {
 			return {
 
-				// Associating table data with its corresponding property.
-				tableData,
 
 				// Associating table columns with its corresponding property.
 				tableColumns,
+				
 			}
 		},
+		  created(){
+    this.$store.dispatch("getstudents")
+  },
+  computed:{
+    ...mapState(["students"])
+  }
 	})
 
 </script>

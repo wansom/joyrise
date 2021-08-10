@@ -8,7 +8,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     students:[],
-    userProfile:{}
+    userProfile:{},
+    grades:[]
   },
   mutations: {
     setUserProfile(state, val){
@@ -16,6 +17,9 @@ export default new Vuex.Store({
     },
     setStudents(state, val){
       state.students = val
+    },
+    setGrades(state, val){
+      state.grades =val
     }
   },
   actions: {
@@ -43,7 +47,31 @@ export default new Vuex.Store({
       })
     },
     //get students
-    
+        async getstudents({ commit }) {
+
+      fb.studentCollection
+        .onSnapshot((snapshot) => {
+          const loadedStudents = [];
+          snapshot.forEach((doc) => {
+            const loadedStudent = doc.data();
+            (loadedStudent.id = doc.id), loadedStudents.push(loadedStudent);
+          });
+          commit("setStudents", loadedStudents);
+        });
+    },
+    //get grades
+          async getClasses({ commit }) {
+
+      fb.gradesCollection
+        .onSnapshot((snapshot) => {
+          const loadedGrades = [];
+          snapshot.forEach((doc) => {
+            const loadedGrade = doc.data();
+            (loadedGrade.id = doc.id), loadedGrades.push(loadedGrade);
+          });
+          commit("setGrades", loadedGrades);
+        });
+    },
      /**
      * Profile Section Starts Here
      */

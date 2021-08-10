@@ -4,7 +4,7 @@
 		<a-card :bordered="false" class="widget-1">
 		<a-statistic
 			title="Students"
-			value="2"
+			:value="students.length"
 			:prefix="prefix"
 			:suffix="suffix"
 			:precision="0"
@@ -20,7 +20,7 @@
 </template>
 
 <script>
-
+import {mapState} from 'vuex';
 	export default ({
 		props: {
 			title: {
@@ -57,8 +57,11 @@
 			return {
 			}
 		},
-		created(){
-			
+		mounted(){
+		this.$store.dispatch("getstudents");
+		},
+		computed:{
+			...mapState(["students"])
 		}
 	})
 
