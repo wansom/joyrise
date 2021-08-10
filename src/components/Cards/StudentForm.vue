@@ -30,16 +30,16 @@
       </svg>
     </a-button>
     <hr class="my-25" />
-
-    <a-form
-      id="components-form-demo-normal-login"
+           <a-form
+      id="student-information"
       :form="form"
       class="login-form"
       @submit="handleSubmit"
     >
       <a-tabs default-active-key="1" @change="callback">
         <a-tab-pane key="1" tab="Student Information">
-          <a-form-item class="mb-10" label='First Name'>
+     
+      <a-form-item class="mb-10" label="First Name">
             <a-input
               v-decorator="[
                 'first_name',
@@ -53,8 +53,7 @@
             >
             </a-input>
           </a-form-item>
-          
-          <a-form-item class="mb-10" label='Last Name'>
+              <a-form-item class="mb-10" label="Last Name">
             <a-input
               v-decorator="[
                 'last_name',
@@ -68,94 +67,81 @@
             >
             </a-input>
           </a-form-item>
-		  <a-form-item class="mb-10" label="Birth Date">
+          <a-form-item class="mb-10" label="Birth Date">
             <a-input
               v-decorator="[
                 'birth_date',
                 {
-                  rules: [
-                    { required: true, message:'please pick a date' },
-                  ],
+                  rules: [{ required: true, message: 'please pick a date' }],
                 },
               ]"
               placeholder="Birth Date"
-			  type="date"
-			  
+              type="date"
             >
             </a-input>
           </a-form-item>
-		   <a-form-item class="mb-10" label="Admission Date">
+           <a-form-item class="mb-10" label="Admission Date">
             <a-input
               v-decorator="[
-                'birth_date',
+                'admission_date',
                 {
-                  rules: [
-                    { required: true, message:'please pick a date' },
-                  ],
+                  rules: [{ required: true, message: 'please pick a date' }],
                 },
               ]"
               placeholder="Birth Date"
-			  type="date"
-			  
+              type="date"
             >
             </a-input>
           </a-form-item>
-		    <a-form-item class="mb-10" label="Reporting Date">
+          <a-form-item class="mb-10" label="Reporting Date">
             <a-input
               v-decorator="[
-                'birth_date',
+                'reporting_date',
                 {
-                  rules: [
-                    { required: true, message:'please pick a date' },
-                  ],
+                  rules: [{ required: true, message: 'please pick a date' }],
                 },
               ]"
               placeholder="Birth Date"
-			  type="date"
-			  
+              type="date"
             >
             </a-input>
           </a-form-item>
-		  <a-form-item class="mb-10" label='Gender'>
-            <a-select
-              default-value="select Gender"
-              style="width: 100%"
-              @change="setGender"
-            >
-              <a-select-option value="male">
-                Male
-              </a-select-option>
-              <a-select-option value="female">
-                Female
-              </a-select-option>
-      
-             
-            </a-select>
-          </a-form-item>
-		  <a-form-item class="mb-10" label='Class'>
-            <a-select
-              default-value="select Class"
-              style="width: 100%"
-              @change="setGender"
-            >
-              <a-select-option value="male">
-                1
-              </a-select-option>
-              <a-select-option value="female">
-                2
-              </a-select-option>
-      
-             
-            </a-select>
-          </a-form-item>
-		  <a-form-item class="mb-10" label='previous School'>
+    <a-form-item label="Gender">
+      <a-select
+        v-decorator="[
+          'gender',
+          { rules: [{ required: true, message: 'Please select your gender!' }] },
+        ]"
+        placeholder="Select gender"
+        
+      >
+        <a-select-option value="male">
+          male
+        </a-select-option>
+        <a-select-option value="female">
+          female
+        </a-select-option>
+      </a-select>
+    </a-form-item>
+            <a-form-item label="Grade">
+      <a-select
+        v-decorator="[
+          'grade',
+          { rules: [{ required: true, message: 'No grade selected!' }] },
+        ]"
+        placeholder="Select student's grade"
+      >
+        <a-select-option  v-for="grade in grades" :key="grade.id" :value="grade.grade">
+          {{grade.grade}}
+        </a-select-option>
+      </a-select>
+    </a-form-item>
+          <a-form-item class="mb-10" label="previous School">
             <a-input
               v-decorator="[
-                'first_name',
+                'previous_school',
                 {
-                  rules: [
-                    { required: false },
-                  ],
+                  rules: [{ required: false }],
                 },
               ]"
               placeholder="Nasibi primary School"
@@ -167,10 +153,10 @@
           <a-form-item class="mb-10">
             <a-input
               v-decorator="[
-                'first_name',
+                'father_name',
                 {
                   rules: [
-                    { required: true, message: 'Please input fathers name!' },
+                    { required: false, message: 'Please input fathers name!' },
                   ],
                 },
               ]"
@@ -181,10 +167,10 @@
           <a-form-item class="mb-10">
             <a-input
               v-decorator="[
-                'last_name',
+                'father_phone',
                 {
                   rules: [
-                    { required: true, message: 'Please input last name!' },
+                    { required: false, message: 'Please input fathers phone name!' },
                   ],
                 },
               ]"
@@ -195,10 +181,10 @@
           <a-form-item class="mb-10">
             <a-input
               v-decorator="[
-                'last_name',
+                'mother_name',
                 {
                   rules: [
-                    { required: true, message: 'Please input last name!' },
+                    { required: false, message: 'Please input mothers name!' },
                   ],
                 },
               ]"
@@ -206,13 +192,13 @@
             >
             </a-input>
           </a-form-item>
-            <a-form-item class="mb-10">
+          <a-form-item class="mb-10">
             <a-input
               v-decorator="[
-                'last_name',
+                'mother_phone',
                 {
                   rules: [
-                    { required: true, message: 'Please input last name!' },
+                    { required: false, message: 'Please input mothers phone!' },
                   ],
                 },
               ]"
@@ -223,10 +209,10 @@
           <a-form-item class="mb-10">
             <a-input
               v-decorator="[
-                'last_name',
+                'home_address',
                 {
                   rules: [
-                    { required: true, message: 'Please input last name!' },
+                    { required: true, message: 'Please input home address!' },
                   ],
                 },
               ]"
@@ -248,23 +234,46 @@
           </a-form-item>
         </a-tab-pane>
       </a-tabs>
-    </a-form>
+          </a-form>
   </a-card>
   <!-- / Profile Information Card -->
 </template>
 
 <script>
+import {mapState} from 'vuex';
 export default {
   data() {
     return {
-		gender:""
-	};
+      gender: "",
+    };
   },
-  methods:{
-	  setGender(value){
-		  this.gender = value
-		  console.log(this.gender);
-	  }
+  	beforeCreate() {
+			// Creates the form and adds to it component's "form" property.
+			this.form = this.$form.createForm(this, { name: 'student_info' });
+		},
+  methods: {
+    handleSubmit(e) {
+      e.preventDefault();
+      this.form.validateFields((err, values) => {
+        if (!err) {
+          //this.$store.dispatch("addStudent",values)
+          
+          this.$message.success(`student added successfully.`);
+
+        }else{
+          Object.entries(err).forEach((data) => console.log(data));
+          console.log(err)
+           this.$message.error(`check your values and try again`);
+        }
+      });
+    },
+
+  },
+  computed:{
+    ...mapState(["grades"])
+  },
+  mounted(){
+    this.$store.dispatch("getClasses")
   }
 };
 </script>
