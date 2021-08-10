@@ -51,7 +51,7 @@
 						<span class="label">Add Student</span>
 					</router-link>
 				</a-menu-item>
-				<a-menu-item>
+				<!-- <a-menu-item>
 					<router-link to="/levels">
 						<span class="icon">
 							<svg width="14px" height="14px" viewBox="0 0 14 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -72,7 +72,7 @@
 						</span>
 						<span class="label">Classes</span>
 					</router-link>
-				</a-menu-item>
+				</a-menu-item> -->
 				<a-menu-item class="menu-item-header">
 					Account Pages
 				</a-menu-item>

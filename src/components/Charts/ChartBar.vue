@@ -12,6 +12,7 @@
 		props: [
 			'data',
 			'height',
+			
 		],
 		data(){
 			return {

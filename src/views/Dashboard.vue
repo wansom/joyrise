@@ -93,30 +93,25 @@
 
 	// "Projects" table list of columns and their properties.
 	const tableColumns = [
-		{
-			title: 'ADMISSION NO',
-			dataIndex: 'number',
-			scopedSlots: { customRender: 'number' },
-			width: 300,
-			
-		},
+
 		{
 			title: 'NAME',
 			dataIndex: 'NAME',
 			scopedSlots: { customRender: 'name' },
+			width: 300,
 		},
 		{
-			title: 'CLASS',
+			title: 'GRADE',
 			dataIndex: 'level',
 			class: 'font-bold text-muted text-sm',
 		},
 		{
-			title: 'BALANCE',
+			title: 'AMOUNT PAID',
 			dataIndex: 'Paid',
 			class: 'font-bold text-muted text-sm',
 		},
 		{
-			title: 'COMPLETION',
+			title: 'BALANCE',
 			scopedSlots: { customRender: 'completion' },
 			dataIndex: 'completion',
 		},

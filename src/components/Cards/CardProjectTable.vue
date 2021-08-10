@@ -24,11 +24,7 @@
       </a-row>
     </template>
     <a-table :columns="columns" :data-source="data" :pagination="true" rowKey="id">
-      <template slot="number" slot-scope="number">
-        <h6 class="m-0">
-          {{ number }}
-        </h6>
-      </template>
+     
       <template slot="NAME" slot-scope="NAME">
         <h6 class="m-0">
           {{ NAME}}

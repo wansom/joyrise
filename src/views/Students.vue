@@ -14,7 +14,7 @@
 
 				<!-- Authors Table Card -->
 				<CardStudentstable
-					:data="table1Data"
+					:data="students"
 					:columns="table1Columns"
 				></CardStudentstable>
 				<!-- / Authors Table Card -->
@@ -32,34 +32,30 @@
 
 	// "Authors" table component.
 	import CardStudentstable from '../components/Cards/CardStudentstable' ;
+	import {mapState} from 'vuex';
 
 
 	
 	// "Authors" table list of columns and their properties.
 	const table1Columns = [
 		{
-			title: 'ADMISSION_NO',
-			dataIndex: 'admissionno',
-			scopedSlots: { customRender: 'admissionno' },
-		},
-		{
 			title: 'NAME',
-			dataIndex: 'name',
+			dataIndex: 'NAME',
 			scopedSlots: { customRender: 'name' },
 		},
 		{
-			title: 'LEVEL',
-			dataIndex: 'level',
-			scopedSlots: { customRender: 'level' },
+			title: 'GRADE',
+			dataIndex: 'grade',
+			scopedSlots: { customRender: 'grade' },
 		},
 		{
 			title: 'BALANCE',
-			dataIndex: 'balance',
+			dataIndex: 'Paid',
 			class: 'text-muted',
 		},
 		{
 			title: '',
-			scopedSlots: { customRender: 'editBtn' },
+			scopedSlots: { customRender: 'viewBtn' },
 			width: 50,
 		},
 		{
@@ -67,9 +63,10 @@
 			scopedSlots: { customRender: 'editBtn' },
 			width: 50,
 		},
+		
 		{
 			title: '',
-			scopedSlots: { customRender: 'editBtn' },
+			scopedSlots: { customRender: 'deleteBtn' },
 			width: 50,
 		},
 	];
@@ -228,6 +225,12 @@
 				table2Columns: table2Columns,
 			}
 		},
+		computed:{
+			...mapState(["students"])
+		},
+		created(){
+			this.$store.dispatch("getstudents")
+		}
 	})
 
 </script>
