@@ -68,20 +68,13 @@
           make sure all excel files are rightly formatted
         </p>
       </a-upload-dragger>
-      <input type="file" @change="uploadFile" ref="file" />
-      <form enctype="multipart/form-data">
-        <input type="file" @change="onFileChange" />
-      </form>
     </div>
   </a-card>
   <!-- / Projects Table Card -->
 </template>
 
 <script>
-const csv = require("csvtojson/v2");
-const csvToJson = require("convert-csv-to-json");
-const csv1 = require("csv-parser");
-const fs = require("fs");
+import * as fb from "@/firebase.js";
 export default {
   props: {
     data: {
@@ -107,6 +100,18 @@ export default {
       var files = e.target.files || e.dataTransfer.files;
       if (!files.length) return;
       this.createInput(files[0]);
+    },
+        handleChange(info) {
+      const status = info.file.status;
+      if (status !== 'uploading') {
+        console.log(info.file, info.fileList);
+      }
+      if (status === 'done') {
+        this.$message.success(`${info.file.name} file uploaded successfully.`);
+        this.createInput(info.file.originFileObj);
+      } else if (status === 'error') {
+        this.$message.error(`${info.file.name} file upload failed.`);
+      }
     },
     createInput(file) {
       let promise = new Promise((resolve, reject) => {
@@ -134,7 +139,13 @@ export default {
       }  
       //return result; //JavaScript object
        //JSON
-    console.log(newresult);
+       if(newresult &&(typeof newresult === "object")){
+         Object.keys(newresult).forEach((data)=>{
+           fb.studentCollection.doc().set(newresult[data])
+            console.log(newresult[data]);
+         })
+       }
+   
         },
         error => {
           /* handle an error */ 

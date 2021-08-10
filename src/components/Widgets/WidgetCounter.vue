@@ -57,6 +57,9 @@
 			return {
 			}
 		},
+		created(){
+			
+		}
 	})
 
 </script>
