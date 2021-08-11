@@ -142,27 +142,7 @@ export default new Vuex.Store({
       // set user profile in state
       commit("setUserProfile", userProfile);
     },
-    //fetch userData
-    async fetchUserData({ commit }, user) {
-      // fetch user profile
-      const userData = await fb.usersCollection
-        .doc(user.uid)
-        .get()
-        .then(docs => {
-          return docs.data();
-        });
-      // set user profile in state
-      commit("setUserData", userData);
-    },
-    // logout
-    async logout({ commit }) {
-      await fb.auth.signOut();
-
-      // clear userProfile and redirect to /login
-      commit("setUserProfile", {});
-      router.push("/sign-in");
-    },
-
+// update user profile
     async updateProfile({ dispatch }, form) {
       const user = fb.auth.currentUser;
       await fb.usersCollection.doc(user.uid).set({

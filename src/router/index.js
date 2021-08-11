@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import { auth } from "../firebase";
 
 Vue.use(VueRouter)
 
@@ -12,7 +13,7 @@ let routes = [
 	{
 		path: '/',
 		name: 'Home',
-		redirect: '/dashboard',
+		redirect: '/Sign-In',
 	},
 	{
 		path: '/dashboard',
@@ -22,6 +23,9 @@ let routes = [
 		// this generates a separate chunk (about.[hash].js) for this route
 		// which is lazy-loaded when the route is visited.
 		component: () => import(/* webpackChunkName: "dashboard" */ '../views/Dashboard.vue'),
+		 meta: {
+          requiresAuth: true,
+        },
 	},
 	{
 		path: '/layout',
@@ -34,6 +38,9 @@ let routes = [
 		name: 'Students',
 		layout: "dashboard",
 		component: () => import('../views/Students.vue'),
+		 meta: {
+          requiresAuth: true,
+        },
 	},
 	{
 		path: '/levels',
@@ -123,5 +130,14 @@ const router = new VueRouter({
 		}
 	}
 })
+router.beforeEach((to, from, next) => {
+  const requiresAuth = to.matched.some((route) => route.meta.requiresAuth);
+
+  if (requiresAuth && !auth.currentUser) {
+    next("/Sign-In");
+  } else {
+    next();
+  }
+});
 
 export default router
