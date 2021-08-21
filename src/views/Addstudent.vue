@@ -70,9 +70,6 @@
 				// Active button for the "User Profile" card's radio button group.
 				profileHeaderBtns: 'overview',
 
-				// Associating Conversation's list data with its corresponding property.
-				conversationsData,
-
 				// Project cards data
 				projects,
 				                demosteps: [

@@ -1,6 +1,10 @@
 <template>
   <a-table :columns="columns" :data-source="data" rowKey="id">
-    <a slot="action"  href="javascript:;">EDIT</a>
+    <a  slot="action"  slot-scope="record" @click="()=>{
+      tryRecord(record)}">
+
+    <router-link  :to="{name:'Editstudent', params:{student:record}}" >EDIT </router-link>
+    </a>
     <p slot="expandedRowRender" slot-scope="record" style="margin: 0">
       <ul>
         <li> Mother's Name: {{ record.mother_name }}</li>
@@ -37,5 +41,10 @@ export default {
       columns,
     };
   },
+  methods:{
+    tryRecord(record){
+      console.log(record)
+    }
+  }
 };
 </script>
