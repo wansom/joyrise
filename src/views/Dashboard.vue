@@ -78,7 +78,7 @@
 	import WidgetBalance from '../components/Widgets/WidgetBalance.vue';
 
 	// "Projects" table component.
-	import CardProjectTable from '../components/Cards/CardProjectTable' ;
+	import CardProjectTable from '../components/tables/StudentsTable.vue' ;
 
 	// Order History card component.
 	import CardOrderHistory from '../components/Cards/CardOrderHistory' ;

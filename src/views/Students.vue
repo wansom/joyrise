@@ -31,7 +31,7 @@
 <script>
 
 	// "Authors" table component.
-	import CardStudentstable from '../components/Cards/CardStudentstable' ;
+	import CardStudentstable from '../components/tables/StudentsTable.vue' ;
 	import {mapState} from 'vuex';
 
 
