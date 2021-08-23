@@ -6,29 +6,26 @@
     :bodyStyle="{ paddingTop: 0, paddingBottom: '16px' }"
     :headStyle="{ paddingRight: 0 }"
   >
+   <a-modal v-model="visible" title="Basic Modal" @ok="handleOk">
+      <p>Some contents...</p>
+      <p>Some contents...</p>
+      <p>Some contents...</p>
+    </a-modal>
     <template #title>
       <h6 class="font-semibold m-0">Add Student</h6>
     </template>
-    <a-button type="link" slot="extra">
-      <svg
-        width="20"
-        height="20"
-        viewBox="0 0 20 20"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          class="fill-muted"
-          d="M13.5858 3.58579C14.3668 2.80474 15.6332 2.80474 16.4142 3.58579C17.1953 4.36683 17.1953 5.63316 16.4142 6.41421L15.6213 7.20711L12.7929 4.37868L13.5858 3.58579Z"
-          fill="#111827"
-        />
-        <path
-          class="fill-muted"
-          d="M11.3787 5.79289L3 14.1716V17H5.82842L14.2071 8.62132L11.3787 5.79289Z"
-          fill="#111827"
-        />
-      </svg>
-    </a-button>
+    
+    <a slot="extra">
+        <a-upload
+    name="file"
+    :multiple="true"
+    action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+    :headers="headers"
+    @change="handleChange"
+  >
+    <a-button> <a-icon type="upload" /> Click to Upload csv</a-button>
+  </a-upload>
+    </a>
     <hr class="my-25" />
            <a-form
       id="student-information"
@@ -241,17 +238,22 @@
 
 <script>
 import {mapState} from 'vuex';
+import * as fb from "@/firebase.js";
 export default {
   data() {
     return {
       gender: "",
+      visible:false,
+       headers: {
+        authorization: 'authorization-text',
+      },
     };
   },
   	beforeCreate() {
 			// Creates the form and adds to it component's "form" property.
 			this.form = this.$form.createForm(this, { name: 'student_info' });
 		},
-  methods: {
+  methods: {  
     handleSubmit(e) {
       e.preventDefault();
       this.form.validateFields((err, values) => {
@@ -267,6 +269,63 @@ export default {
         }
       });
     },
+    onFileChange(e) {
+      var files = e.target.files || e.dataTransfer.files;
+      if (!files.length) return;
+      this.createInput(files[0]);
+    },
+        handleChange(info) {
+      const status = info.file.status;
+      if (status !== 'uploading') {
+        console.log(info.file, info.fileList);
+      }
+      if (status === 'done') {
+        this.$message.success(`${info.file.name} file uploaded successfully.`);
+        this.createInput(info.file.originFileObj);
+      } else if (status === 'error') {
+        this.$message.error(`${info.file.name} file upload failed.`);
+      }
+    },
+    createInput(file) {
+      let promise = new Promise((resolve, reject) => {
+        var reader = new FileReader();
+        var vm = this;
+        reader.onload = e => {
+          resolve((vm.fileinput = reader.result));
+        };
+        reader.readAsText(file);
+      });
+
+      promise.then(
+        result => {
+          /* handle a successful result */
+        var lines = result.split("\n");
+    var newresult = [];
+    var headers=lines[0].split(",");
+    for(var i=1;i<lines.length;i++){
+      var obj = {};
+      var currentline=lines[i].split(",");
+      for(var j=0;j<headers.length;j++){
+        obj[headers[j]] = currentline[j];
+      }
+      newresult.push(obj);
+      }  
+      //return result; //JavaScript object
+       //JSON
+       if(newresult &&(typeof newresult === "object")){
+         Object.keys(newresult).forEach((data)=>{
+           fb.studentCollection.doc().set(newresult[data])
+            console.log(newresult[data]);
+         })
+       }
+   
+        },
+        error => {
+          /* handle an error */ 
+          console.log(error);
+        }
+      );
+    }
 
   },
   computed:{
