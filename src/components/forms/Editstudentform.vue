@@ -391,13 +391,25 @@ export default {
       e.preventDefault();
       this.form.validateFields((err, values) => {
         if (!err) {
-          //this.$store.dispatch("addStudent",values)
+          this.$store.dispatch("editStudent",{
+            name:values.name??this.student.name,
+            birth_date:new Date( values.birth_date)??this.student.birth_date,
+            father_name: values.father_name??this.student.father_name,
+            gender:values.gender??this.student.gender,
+            grade:values.grade??this.student.grade,
+            home_address:values.home_address??this.student.home_address,
+            mother_name:values.mother_name??this.student.mother_name,
+            id:this.student.id,
+            mother_phone:values.mother_phone??this.student.mother_phone,
+            previous_school:values.previous_school??this.student.previous_school,
+            admission_date:new Date(values.admission_date)??this.student.admission_date,
+            reporting_date:new Date(values.reporting_date)??this.student.reporting_date
+          })
          if(values.amount>0){
-              console.log(values)
               this.visible =true
          }
 
-          this.$message.success(`records added successfully.`);
+          this.$message.success(`records updated successfully.`);
 
         }else{
           Object.entries(err).forEach((data) => console.log(data));
@@ -406,6 +418,9 @@ export default {
         }
       });
     },
+    handleOk(){
+      console.log('ok')
+    }
 
   },
   computed:{

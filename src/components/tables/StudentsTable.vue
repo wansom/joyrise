@@ -10,7 +10,7 @@
         <li> Mother's Name: {{ record.mother_name }}</li>
         <li>Father's Name: {{record.father_name}}</li>
         <li>
-          Date of birth: {{record.dob}}
+          Date of birth: {{record.birth_date}}
         </li>
         <li>Father's Phone: {{record.father_phone}}</li>
         <li>mother's Phone: {{record.mother_phone}}</li>
