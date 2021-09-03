@@ -22,6 +22,7 @@
     "register-service-worker": "^1.7.1",
     "vue": "2.6.14",
     "vue-github-buttons": "^3.1.0",
+    "vue-html2pdf": "^1.8.0",
     "vue-router": "3.5.2",
     "vue-stepper": "^1.0.11",
     "vuex": "^3.4.0"
