@@ -10,7 +10,28 @@
   >
     <div>
     <a-modal v-model="visible" title="Print Receipt" @ok="handleOk">
-      <div id="invoice-POS">
+         <div>
+     <vue-html2pdf
+        :show-layout="true"
+        :float-layout="true"
+        :enable-download="true"
+        :preview-modal="false"
+        :paginate-elements-by-height="1400"
+        filename="hee hee"
+        :pdf-quality="2"
+        :manual-pagination="false"
+        pdf-format="a4"
+        pdf-orientation="landscape"
+        pdf-content-width="500px"
+ 
+        @progress="onProgress($event)"
+        @hasStartedGeneration="hasStartedGeneration()"
+        @hasGenerated="hasGenerated($event)"
+        ref="html2Pdf"
+    >
+        <section slot="pdf-content">
+            <!-- PDF Content Here -->
+              <div id="invoice-POS">
     
     <center id="top">
       <div class="logo"></div>
@@ -90,9 +111,12 @@
 						<p class="legal"><strong>Thank you for your business!</strong>  Payment is expected within 31 days; please process this invoice within that time. There will be a 5% interest charge per month on late invoices. 
 						</p>
 					</div>
-
 				</div><!--End InvoiceBot-->
-  </div><!--End Invoice-->
+  </div>
+        </section>
+    </vue-html2pdf>
+   </div>
+    
     </a-modal>
   </div>
     <template #title>
@@ -367,6 +391,7 @@
 
 <script>
 import {mapState} from 'vuex';
+import VueHtml2pdf from 'vue-html2pdf';
 export default {
     	props: {
 			student: {
@@ -406,6 +431,8 @@ export default {
             reporting_date:new Date(values.reporting_date)??this.student.reporting_date
           })
          if(values.amount>0){
+              
+              this.$refs.html2Pdf.generatePdf()
               this.visible =true
          }
 
@@ -420,7 +447,10 @@ export default {
     },
     handleOk(){
       console.log('ok')
-    }
+    },
+        generateReport () {
+            this.$refs.html2Pdf.generatePdf()
+        }
 
   },
   computed:{
@@ -431,7 +461,10 @@ export default {
   },
   mounted(){
     this.$store.dispatch("getClasses")
-  }
+  },
+    components: {
+        VueHtml2pdf
+    }
 };
 </script>
 <style scoped lang="scss">
