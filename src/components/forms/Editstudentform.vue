@@ -42,14 +42,24 @@
     
     <div id="mid">
       <div class="info">
-        <h2>Contact Info</h2>
+        <h2>School Info</h2>
         <p> 
-            Address : street city, state 0000<br>
-            Email   : JohnDoe@gmail.com<br>
+            P.O BOX : 53-5006<br>
+            date   : {{new Date().toDateString()}}<br>
             Phone   : 555-555-5555<br>
         </p>
       </div>
     </div><!--End Invoice Mid-->
+    <div id="mid">
+      <div class="info">
+        <h2>Student Details</h2>
+        <p> 
+            Name : {{student.name}}<br>
+            Grade  : {{student.grade}}<br>
+            Term  : One<br>
+        </p>
+      </div>
+    </div>
     
     <div id="bot">
 
@@ -58,57 +68,89 @@
 							<tr class="tabletitle">
 								<td class="item"><h2>Item</h2></td>
 								<td class="Hours"><h2>Qty</h2></td>
-								<td class="Rate"><h2>Sub Total</h2></td>
+								<td class="Rate"><h2>Sub Total(KSH)</h2></td>
 							</tr>
 
 							<tr class="service">
-								<td class="tableitem"><p class="itemtext">Communication</p></td>
-								<td class="tableitem"><p class="itemtext">5</p></td>
-								<td class="tableitem"><p class="itemtext">$375.00</p></td>
+								<td class="tableitem"><p class="itemtext">Tution Fee</p></td>
+								<td class="tableitem"><p class="itemtext">1</p></td>
+								<td class="tableitem"><p class="itemtext">3750.00</p></td>
 							</tr>
 
 							<tr class="service">
-								<td class="tableitem"><p class="itemtext">Asset Gathering</p></td>
+								<td class="tableitem"><p class="itemtext">Medical Fee</p></td>
 								<td class="tableitem"><p class="itemtext">3</p></td>
-								<td class="tableitem"><p class="itemtext">$225.00</p></td>
+								<td class="tableitem"><p class="itemtext">225.00</p></td>
 							</tr>
 
 							<tr class="service">
-								<td class="tableitem"><p class="itemtext">Design Development</p></td>
+								<td class="tableitem"><p class="itemtext">Activity Fee</p></td>
 								<td class="tableitem"><p class="itemtext">5</p></td>
-								<td class="tableitem"><p class="itemtext">$375.00</p></td>
+								<td class="tableitem"><p class="itemtext">1750.00</p></td>
 							</tr>
 
 							<tr class="service">
-								<td class="tableitem"><p class="itemtext">Animation</p></td>
-								<td class="tableitem"><p class="itemtext">20</p></td>
-								<td class="tableitem"><p class="itemtext">$1500.00</p></td>
+								<td class="tableitem"><p class="itemtext">E.W.&C</p></td>
+								<td class="tableitem"><p class="itemtext">1</p></td>
+								<td class="tableitem"><p class="itemtext">00.00</p></td>
 							</tr>
 
 							<tr class="service">
-								<td class="tableitem"><p class="itemtext">Animation Revisions</p></td>
-								<td class="tableitem"><p class="itemtext">10</p></td>
-								<td class="tableitem"><p class="itemtext">$750.00</p></td>
+								<td class="tableitem"><p class="itemtext">Lunch</p></td>
+								<td class="tableitem"><p class="itemtext">1</p></td>
+								<td class="tableitem"><p class="itemtext">750.00</p></td>
+							</tr>
+              
+							<tr class="service">
+								<td class="tableitem"><p class="itemtext">Personal Emoluments</p></td>
+								<td class="tableitem"><p class="itemtext">1</p></td>
+								<td class="tableitem"><p class="itemtext">750.00</p></td>
+							</tr>
+              						<tr class="service">
+								<td class="tableitem"><p class="itemtext">Exam Fee</p></td>
+								<td class="tableitem"><p class="itemtext">1</p></td>
+								<td class="tableitem"><p class="itemtext">750.00</p></td>
+							</tr>
+
+						<tr class="service">
+								<td class="tableitem"><p class="itemtext">PTA</p></td>
+								<td class="tableitem"><p class="itemtext">1</p></td>
+								<td class="tableitem"><p class="itemtext">150.00</p></td>
+							</tr>
+						<tr class="service">
+								<td class="tableitem"><p class="itemtext">Development Fund</p></td>
+								<td class="tableitem"><p class="itemtext">1</p></td>
+								<td class="tableitem"><p class="itemtext">00.00</p></td>
+							</tr>
+						<tr class="service">
+								<td class="tableitem"><p class="itemtext">Transport</p></td>
+								<td class="tableitem"><p class="itemtext">1</p></td>
+								<td class="tableitem"><p class="itemtext">750.00</p></td>
 							</tr>
 
 
 							<tr class="tabletitle">
 								<td></td>
-								<td class="Rate"><h2>tax</h2></td>
-								<td class="payment"><h2>$419.25</h2></td>
+								<td class="Rate"><h2>E&OE</h2></td>
+								<td class="payment"><h2>0.00</h2></td>
 							</tr>
 
 							<tr class="tabletitle">
 								<td></td>
 								<td class="Rate"><h2>Total</h2></td>
-								<td class="payment"><h2>$3,644.25</h2></td>
+								<td class="payment"><h2>3,644.25</h2></td>
 							</tr>
 
 						</table>
 					</div><!--End Table-->
 
 					<div id="legalcopy">
-						<p class="legal"><strong>Thank you for your business!</strong>  Payment is expected within 31 days; please process this invoice within that time. There will be a 5% interest charge per month on late invoices. 
+            
+						<p class="legal"><strong>Thank you for you!</strong>  <br>
+            Balance_______________________________ <br><br>
+            signature ______________________________ <br>
+             All fees shuld be paid to the official school bank account or paybill.
+          
 						</p>
 					</div>
 				</div><!--End InvoiceBot-->
@@ -418,21 +460,21 @@ export default {
         if (!err) {
           this.$store.dispatch("editStudent",{
             name:values.name??this.student.name,
-            birth_date:new Date( values.birth_date)??this.student.birth_date,
-            father_name: values.father_name??this.student.father_name,
-            gender:values.gender??this.student.gender,
-            grade:values.grade??this.student.grade,
-            home_address:values.home_address??this.student.home_address,
-            mother_name:values.mother_name??this.student.mother_name,
-            id:this.student.id,
-            mother_phone:values.mother_phone??this.student.mother_phone,
-            previous_school:values.previous_school??this.student.previous_school,
-            admission_date:new Date(values.admission_date)??this.student.admission_date,
-            reporting_date:new Date(values.reporting_date)??this.student.reporting_date
+            birth_date:new Date( values.birth_date)??this.student.birth_date??null,
+            father_name: values.father_name??this.student.father_name ?? null,
+            gender:values.gender??this.student.gender ??null,
+            grade:values.grade??this.student.grade ??null,
+            home_address:values.home_address??this.student.home_address?? null,
+            mother_name:values.mother_name??this.student.mother_name?? null,
+            id:this.student.id?? null,
+            mother_phone:values.mother_phone??this.student.mother_phone ?? null,
+            previous_school:values.previous_school??this.student.previous_school ??null,
+           admission_date:new Date(values.admission_date)??this.student.admission_date ??null,
+            reporting_date:new Date(values.reporting_date)??this.student.reporting_date ?? null
           })
          if(values.amount>0){
               
-              // this.$refs.html2Pdf.generatePdf()
+               //this.$refs.html2Pdf.generatePdf()
               this.visible =true
          }
 
@@ -447,6 +489,7 @@ export default {
     },
     handleOk(){
       console.log('ok')
+       this.$refs.html2Pdf.generatePdf()
     },
         generateReport () {
             this.$refs.html2Pdf.generatePdf()
@@ -506,14 +549,14 @@ p{
   //float: left;
 	height: 60px;
 	width: 60px;
-	background: url(http://michaeltruong.ca/images/logo1.png) no-repeat;
+	background: url(https://firebasestorage.googleapis.com/v0/b/st-isaac.appspot.com/o/stIsaacLogo.png?alt=media&token=329b395a-2d03-4edd-8053-14b8d1474b52) no-repeat;
 	background-size: 60px 60px;
 }
 .clientlogo{
   float: left;
 	height: 60px;
 	width: 60px;
-	background: url(http://michaeltruong.ca/images/client.jpg) no-repeat;
+	background: url(https://firebasestorage.googleapis.com/v0/b/st-isaac.appspot.com/o/stIsaacLogo.png?alt=media&token=329b395a-2d03-4edd-8053-14b8d1474b52) no-repeat;
 	background-size: 60px 60px;
   border-radius: 50px;
 }
