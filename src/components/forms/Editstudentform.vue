@@ -432,7 +432,7 @@ export default {
           })
          if(values.amount>0){
               
-              this.$refs.html2Pdf.generatePdf()
+              // this.$refs.html2Pdf.generatePdf()
               this.visible =true
          }
 
