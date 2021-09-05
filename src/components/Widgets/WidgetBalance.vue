@@ -4,7 +4,7 @@
 		<a-card :bordered="false" class="widget-1">
 		<a-statistic
 			title="Total Payments"
-			value="20000"
+			value="189008"
 			:prefix="prefix"
 			:suffix="suffix"
 			:precision="0"
