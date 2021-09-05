@@ -23,7 +23,8 @@ const columns = [
   { title: 'Name', dataIndex: 'name', key: 'name' },
   { title: 'Grade', dataIndex: 'grade', key: 'grade' },
   { title: 'Gender', dataIndex: 'gender', key: 'gender' },
-  { title: 'Balance', dataIndex: 'balance', key: 'balance' },
+  { title: 'Arreas', dataIndex: 'balance', key: 'balance' },
+   { title: 'Carried Forward', dataIndex: 'carried_forward', key: 'carried_forward' },
   
   { dataIndex: '', key: 'x', scopedSlots: { customRender: 'action' }, fixed:"right" },
 ];

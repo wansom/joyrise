@@ -54,6 +54,11 @@
 			class: 'text-muted',
 		},
 		{
+			title: 'CARRIED FORWARD',
+			dataIndex: 'forward',
+			class: 'text-muted',
+		},
+		{
 			title: '',
 			scopedSlots: { customRender: 'viewBtn' },
 			width: 50,
