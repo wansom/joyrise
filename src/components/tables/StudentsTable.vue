@@ -1,5 +1,10 @@
 <template>
   <a-table :columns="columns" :data-source="data" rowKey="id">
+    <a  slot="fees"  slot-scope="record" @click="()=>{
+      tryRecord(record)}">
+
+    <router-link  :to="{name:'Editstudent', params:{student:record}}" >VIEW RECORDS</router-link>
+    </a>
     <a  slot="action"  slot-scope="record" @click="()=>{
       tryRecord(record)}">
 
@@ -25,7 +30,7 @@ const columns = [
   { title: 'Gender', dataIndex: 'gender', key: 'gender' },
   { title: 'Arreas', dataIndex: 'balance', key: 'balance' },
   // { title: 'Carried Forward', dataIndex: 'carried_forward', key: 'carried_forward' },
-   {title: 'Fees', dataIndex: '', key: 'x', scopedSlots: { customRender: 'action' }},
+   {title: 'Fees', dataIndex: '', key: 'x', scopedSlots: { customRender: 'fees' }},
   { dataIndex: '', key: 'x', scopedSlots: { customRender: 'action' }, fixed:"right" },
 ];
 
