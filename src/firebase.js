@@ -28,6 +28,8 @@ const images = firebase.firestore.FieldValue.arrayUnion();
 const usersCollection = db.collection("users");
 const studentCollection = db.collection("students");
 const gradesCollection = db.collection("classes");
+const feesCollection = db.collection("fees");
+
 
 
 // export utils/refs
@@ -40,6 +42,7 @@ export {
   images,
   usersCollection,
   studentCollection,
-  gradesCollection
+  gradesCollection,
+  feesCollection
 
 };

@@ -1,12 +1,10 @@
 <template>
   <a-table :columns="columns" :data-source="data" rowKey="id">
-    <a  slot="fees"  slot-scope="record" @click="()=>{
-      tryRecord(record)}">
+    <a  slot="fees"  slot-scope="record">
 
-    <router-link  :to="{name:'Editstudent', params:{student:record}}" >VIEW RECORDS</router-link>
+    <router-link  :to="{name:'Feerecords', params:{student:record}}" >VIEW RECORDS</router-link>
     </a>
-    <a  slot="action"  slot-scope="record" @click="()=>{
-      tryRecord(record)}">
+    <a  slot="action"  slot-scope="record">
 
     <router-link  :to="{name:'Editstudent', params:{student:record}}" >EDIT </router-link>
     </a>
@@ -28,9 +26,9 @@ const columns = [
   { title: 'Name', dataIndex: 'name', key: 'name' },
   { title: 'Grade', dataIndex: 'grade', key: 'grade' },
   { title: 'Gender', dataIndex: 'gender', key: 'gender' },
-  { title: 'Arreas', dataIndex: 'balance', key: 'balance' },
+  { title: 'Balance', dataIndex: 'balance', key: 'balance' },
   // { title: 'Carried Forward', dataIndex: 'carried_forward', key: 'carried_forward' },
-   {title: 'Fees', dataIndex: '', key: 'x', scopedSlots: { customRender: 'fees' }},
+   {title: 'Fees', dataIndex: '', key: 'y', scopedSlots: { customRender: 'fees' }},
   { dataIndex: '', key: 'x', scopedSlots: { customRender: 'action' }, fixed:"right" },
 ];
 

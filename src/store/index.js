@@ -46,6 +46,7 @@ export default new Vuex.Store({
             address: payload.address
       })
     },
+    //
     async editStudent({dispatch},payload){
        await fb.studentCollection.doc(payload.id).update(payload).then(()=>{
          console.log("success")

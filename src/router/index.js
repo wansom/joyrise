@@ -91,6 +91,24 @@ let routes = [
 		component: () => import('../views/Editstudent.vue'),
 	},
 	{
+		path: '/feerecords',
+		name: 'Feerecords',
+		layout:"dashboard",
+		meta: {
+			layoutClass: 'layout-profile',
+		},
+		component: () => import('../views/FeeRecords.vue'),
+	},
+	{
+		path: '/addfees',
+		name: 'Addfees',
+		layout:"dashboard",
+		meta: {
+			layoutClass: 'layout-profile',
+		},
+		component: () => import('../views/EditFees.vue'),
+	},
+	{
 		path: '/sign-in',
 		name: 'Sign-In',
 		component: () => import('../views/Sign-In.vue'),
