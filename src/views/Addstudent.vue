@@ -51,68 +51,19 @@
 
 <script>
 
-	import CardPlatformSettings from "../components/Cards/CardPlatformSettings"
-	import CardProfileInformation from "../components/Cards/StudentForm.vue"
-	import HorizontalStepper from 'vue-stepper';
-	import Barchart from '../components/Cards/CardConversations.vue'
-
-
-
+	import CardProfileInformation from "../components/forms/StudentForm.vue"
 	export default ({
 		components: {
-			CardPlatformSettings,
 			CardProfileInformation,
-			 HorizontalStepper
 		
 		},
 		data() {
 			return {
 				// Active button for the "User Profile" card's radio button group.
 				profileHeaderBtns: 'overview',
-
-				// Project cards data
-				projects,
-				                demosteps: [
-                    {
-                        icon: 'mail',
-                        name: 'first',
-                        title: 'Student Information',
-                        subtitle: 'Student Information',
-                        component: Barchart,
-                        completed: false
- 
-                    },
-                    {
-                        icon: 'report_problem',
-                        name: 'second',
-                        title: 'Guardian Information',
-                        subtitle: 'Guardian Information',
-                        component: CardProfileInformation,
-                        completed: true
-                    },
-					 
-                ]
 			}
 		},
 		methods:{
-			   // Executed when @completed-step event is triggered
-            completeStep(payload) {
-                this.demoSteps.forEach((step) => {
-                    if (step.name === payload.name) {
-                        step.completed = true;
-                    }
-                })
-            },
-            // Executed when @active-step event is triggered
-            isStepActive(payload) {
-                this.demoSteps.forEach((step) => {
-                    if (step.name === payload.name) {
-                        if(step.completed === true) {
-                            step.completed = false;
-                        }
-                    }
-                })
-            },
 			submitForm(){
 				console.log("completed")
 			}

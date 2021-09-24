@@ -6,7 +6,7 @@
     :bodyStyle="{ paddingTop: 0, paddingBottom: '16px' }"
     :headStyle="{ paddingRight: 0 }"
   >
-   <a-modal v-model="visible" title="Basic Modal" @ok="handleOk">
+   <a-modal v-model="visible" title="Basic Modal" >
       <p>Some contents...</p>
       <p>Some contents...</p>
       <p>Some contents...</p>
@@ -33,7 +33,7 @@
       class="login-form"
       @submit="handleSubmit"
     >
-      <a-tabs default-active-key="1" @change="callback">
+      <a-tabs default-active-key="1">
         <a-tab-pane key="1" tab="Student Information">
      
       <a-form-item class="mb-10" label="First Name">

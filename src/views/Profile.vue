@@ -41,7 +41,7 @@
 <script>
 
 	import CardPlatformSettings from "../components/Cards/CardPlatformSettings"
-	import CardProfileInformation from "../components/Cards/StudentForm.vue"
+	import CardProfileInformation from "../components/forms/StudentForm.vue"
 	import CardConversations from "../components/Cards/CardConversations"
 	import CardProject from "../components/Cards/CardProject"
 
