@@ -46,7 +46,19 @@ export default new Vuex.Store({
             address: payload.address
       })
     },
-    //
+    // add fee records
+    async addFeeRecords({dispatch},payload){
+      await fb.feesCollection.add({
+        term:payload.term,
+        amount:payload.amount,
+        level:payload.level,
+        recordtype:payload.recordtype,
+        boarding:payload.boarding,
+        date: new Date(),
+
+      })
+    },
+    //edit students
     async editStudent({dispatch},payload){
        await fb.studentCollection.doc(payload.id).update(payload).then(()=>{
          console.log("success")

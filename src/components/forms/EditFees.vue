@@ -23,7 +23,7 @@
       class="login-form"
       @submit="handleSubmit"
     >
-      <a-form-item class="mb-10" label="Term">
+      <a-form-item class="mb-10" label="Select Term">
               <a-select
               v-decorator="[
                 'term',
@@ -46,47 +46,60 @@
               </a-select-option>
             </a-select>
           </a-form-item>
-              <a-form-item class="mb-10" label="Tuition fees">
+          <a-form-item class="mb-10" label="Record Type">
+              <a-select
+              ref="recordType" v-model="recordType"
+              placeholder="select type"
+            >
+              <a-select-option value="transport">
+                Transport
+              </a-select-option>
+              <a-select-option value="tuition">
+               Tuition
+              </a-select-option>
+            </a-select>
+          </a-form-item>
+              <a-form-item class="mb-10" label="Total Amount">
             <a-input
               v-decorator="[
-                'tuition',
+                'amount',
                 {
                   rules: [
-                    { required: true, message: 'Enter tuition fees!' },
+                    { required: true, message: 'Enter amount!' },
                   ],
                 },
               ]"
-              placeholder="Tuition fees amount"
+              placeholder="Enter amount"
             >
             </a-input>
           </a-form-item>
-            <a-form-item class="mb-10" label="transport">
+            <a-form-item class="mb-10" label="Boarding" v-if="recordType =='tuition'">
             <a-input
               v-decorator="[
-                'transport',
+                'boarding',
                 {
                   rules: [{ required: false }],
                 },
               ]"
-              placeholder="transport amount"
+              placeholder="boarding amount"
             >
             </a-input>
           </a-form-item>
-            <a-form-item label="Grade">
+            <a-form-item label="Grades">
       <a-select
         v-decorator="[
-          'grade',
+          'levels',
           { rules: [{ required: true, message: 'No grade selected!' }] },
         ]"
         placeholder="Select levels"
       >
-        <a-select-option value="one">
+        <a-select-option value="ecd">
                 ECD
               </a-select-option>
-              <a-select-option value="two">
+              <a-select-option value="lowerprimary">
                 lower Primary
               </a-select-option>
-               <a-select-option value="three">
+               <a-select-option value="upperprimary">
                 Upper primary
               </a-select-option>
       </a-select>
@@ -113,7 +126,9 @@
 export default {
 data(){
     return{
-        visible :false
+        visible :false,
+        recordType:"tuition"
+
     }
 },
   beforeCreate() {
@@ -125,9 +140,22 @@ handleSubmit(e){
     e.preventDefault();
      this.form.validateFields((err, values) => {
          if(!err){
+           console.log(values,this.recordType)
+        this.$store.dispatch('addFeeRecords',{
+            term:values.term??"",
+        amount:values.amount??"",
+        level:values.levels??"",
+        recordtype:this.recordType??"",
+        boarding:values.boarding??""
 
+        })
+          this.$message.success(`records added successfully.`);
+         }else{
+           this.$message.error(`some values are missing.`);
          }
+         
      })
+    
 }
 }
 }
