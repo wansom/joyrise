@@ -140,6 +140,7 @@ import {mapState} from "vuex";
 		},
 		  created(){
     this.$store.dispatch("getstudents")
+	this.$store.dispatch("getFees")
   },
   computed:{
     ...mapState(["students"])

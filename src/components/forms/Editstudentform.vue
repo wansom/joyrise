@@ -232,7 +232,7 @@
               v-decorator="[
                 'birth_date',
                 {
-                  rules: [{ required: false, message: 'please pick a date' }],
+                  rules: [{ required: true, message: 'please pick a date' }],
                 },
               ]"
               placeholder="Birth Date"
@@ -245,7 +245,7 @@
               v-decorator="[
                 'admission_date',
                 {
-                  rules: [{ required: false, message: 'please pick a date' }],
+                  rules: [{ required: true, message: 'please pick a date' }],
                 },
               ]"
               placeholder="Birth Date"
@@ -258,7 +258,7 @@
               v-decorator="[
                 'reporting_date',
                 {
-                  rules: [{ required: false, message: 'please pick a date' }],
+                  rules: [{ required: true, message: 'please pick a date' }],
                 },
               ]"
               placeholder="Birth Date"
@@ -407,8 +407,18 @@
             >
             </a-input>
           </a-form-item>
+                    <a-form-item>
+            <a-button
+              type="primary"
+              block
+              html-type="submit"
+              class="login-form-button"
+            >
+              Edit Records
+            </a-button>
+          </a-form-item>
         </a-tab-pane>
-        <a-tab-pane key="3" tab="Fees & Payment">
+        <!-- <a-tab-pane key="3" tab="Confirm & Submit">
           <a-form-item class="mb-10">
             <a-input
               label="Amount received"
@@ -466,17 +476,8 @@
               </a-select-option>
             </a-select>
           </a-form-item>
-          <a-form-item>
-            <a-button
-              type="primary"
-              block
-              html-type="submit"
-              class="login-form-button"
-            >
-              Edit Records
-            </a-button>
-          </a-form-item>
-        </a-tab-pane>
+
+        </a-tab-pane> -->
       </a-tabs>
     </a-form>
   </a-card>
@@ -498,6 +499,7 @@ export default {
       gender: "",
       visible: false,
       boarding:false,
+      transport:false,
     };
   },
   beforeCreate() {
@@ -532,6 +534,8 @@ export default {
               new Date(values.reporting_date) ??
               this.student.reporting_date ??
               null,
+              transport:this.student.transport,
+              boarding:this.student.boarding
           });
           if (values.amount > 0) {
             //this.$refs.html2Pdf.generatePdf()

@@ -29,6 +29,7 @@ const usersCollection = db.collection("users");
 const studentCollection = db.collection("students");
 const gradesCollection = db.collection("classes");
 const feesCollection = db.collection("fees");
+const recordsCollection = db.collection("records");
 
 
 
@@ -43,6 +44,7 @@ export {
   usersCollection,
   studentCollection,
   gradesCollection,
-  feesCollection
+  feesCollection,
+  recordsCollection
 
 };

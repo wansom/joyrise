@@ -9,7 +9,9 @@ export default new Vuex.Store({
   state: {
     students:[],
     userProfile:{},
-    grades:[]
+    grades:[],
+    records:[],
+    fees:[]
   },
   mutations: {
     setUserProfile(state, val){
@@ -20,31 +22,20 @@ export default new Vuex.Store({
     },
     setGrades(state, val){
       state.grades =val
+    },
+    setRecords(state, val){
+      state.records = val
+    },
+    setFees(state, val){
+      state.fees = val
     }
   },
   actions: {
     // add students
-    async addStudent({state},payload){
-      fb.studentCollection.add({
-         addmission_no: state.students.length++,//number
-            first_name: payload.first_name,
-            last_name:payload.last_name,
-            gender:payload.gender,
-            birth_date:payload.birth_date,
-            admission_date:payload.admission_date,
-            father_name:payload.father_name,
-            father_phone:payload.father_phone,
-            mother_phone: payload.mother_phone,
-            mother_name:payload.mother_name,
-            guardian_name: payload.guardian_name,
-            guardian_phone:payload.mother_phone,
-            student_class: payload.student_class,
-            stream: payload.stream,
-            reporting_date: payload.reporting_date,
-            previous_school: payload.previous_school,
-            guardian_occupation:payload.guardian_occupation,
-            address: payload.address
-      })
+    async addStudent({commit},payload){
+      fb.studentCollection.add(payload
+         )
+         commit("setStudents",payload)
     },
     // add fee records
     async addFeeRecords({dispatch},payload){
@@ -63,6 +54,32 @@ export default new Vuex.Store({
        await fb.studentCollection.doc(payload.id).update(payload).then(()=>{
          console.log("success")
        })
+    },
+    // get student fees records
+    async getRecords({commit},payload){
+      fb.recordsCollection.where("student_id","==",payload.id)
+      .onSnapshot((snapshot) => {
+        const loadedRecords = [];
+        snapshot.forEach((doc) => {
+          const loadedRecord = doc.data();
+          (loadedRecord.id = doc.id), loadedRecords.push(loadedRecord);
+        });
+        commit("setRecords", loadedRecords);
+      });
+     console.log(payload.id)
+    },
+    //get fees structure
+    async getFees({commit}){
+      
+      fb.feesCollection
+        .onSnapshot((snapshot) => {
+          const loadedFees = [];
+          snapshot.forEach((doc) => {
+            const loadedFee = doc.data();
+            (loadedFee.id = doc.id), loadedFees.push(loadedFee);
+          });
+          commit("setFees", loadedFees);
+        });
     },
     //get students
         async getstudents({ commit }) {
