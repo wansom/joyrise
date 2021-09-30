@@ -7,7 +7,7 @@
     ></div>
     <!-- / Header Background Image -->
     <!--modal start-->
-    <a-modal v-model="visible" :title="student.name">
+    <a-modal v-model="visible" :title="student.name" @ok="handleOk">
       <a-form
         :form="form"
         :label-col="{ span: 5 }"
@@ -102,19 +102,19 @@
     <!--modal end-->
     <!--htnl to pdf model-->
     <div>
-      <a-modal v-model="visible" title="Print Receipt" @ok="handleOk">
+      <a-modal v-model="receipt" title="Download Receipt" >
         <div>
           <vue-html2pdf
             :show-layout="true"
-            :float-layout="true"
+            :float-layout="false"
             :enable-download="true"
             :preview-modal="false"
             :paginate-elements-by-height="1400"
-            filename="hee hee"
+            :filename="student.name"
             :pdf-quality="2"
             :manual-pagination="false"
             pdf-format="a4"
-            pdf-orientation="landscape"
+            pdf-orientation="portrait"
             pdf-content-width="500px"
             @progress="onProgress($event)"
             @hasStartedGeneration="hasStartedGeneration()"
@@ -150,7 +150,7 @@
                     <p>
                       Name : {{ student.name }}<br />
                       Grade : {{ student.grade }}<br />
-                      Term : One<br />
+                      Term : {{term}}<br />
                     </p>
                   </div>
                 </div>
@@ -158,106 +158,7 @@
                 <div id="bot">
                   <div id="table">
                     <table>
-                      <tr class="tabletitle">
-                        <td class="item"><h2>Item</h2></td>
-                        <td class="Hours"><h2>Qty</h2></td>
-                        <td class="Rate"><h2>Sub Total(KSH)</h2></td>
-                      </tr>
-
-                      <tr class="service">
-                        <td class="tableitem">
-                          <p class="itemtext">Tution Fee</p>
-                        </td>
-                        <td class="tableitem"><p class="itemtext">1</p></td>
-                        <td class="tableitem">
-                          <p class="itemtext">3750.00</p>
-                        </td>
-                      </tr>
-
-                      <tr class="service">
-                        <td class="tableitem">
-                          <p class="itemtext">Medical Fee</p>
-                        </td>
-                        <td class="tableitem"><p class="itemtext">3</p></td>
-                        <td class="tableitem">
-                          <p class="itemtext">225.00</p>
-                        </td>
-                      </tr>
-
-                      <tr class="service">
-                        <td class="tableitem">
-                          <p class="itemtext">Activity Fee</p>
-                        </td>
-                        <td class="tableitem"><p class="itemtext">5</p></td>
-                        <td class="tableitem">
-                          <p class="itemtext">1750.00</p>
-                        </td>
-                      </tr>
-
-                      <tr class="service">
-                        <td class="tableitem">
-                          <p class="itemtext">E.W.&C</p>
-                        </td>
-                        <td class="tableitem"><p class="itemtext">1</p></td>
-                        <td class="tableitem"><p class="itemtext">00.00</p></td>
-                      </tr>
-
-                      <tr class="service">
-                        <td class="tableitem"><p class="itemtext">Lunch</p></td>
-                        <td class="tableitem"><p class="itemtext">1</p></td>
-                        <td class="tableitem">
-                          <p class="itemtext">750.00</p>
-                        </td>
-                      </tr>
-
-                      <tr class="service">
-                        <td class="tableitem">
-                          <p class="itemtext">Personal Emoluments</p>
-                        </td>
-                        <td class="tableitem"><p class="itemtext">1</p></td>
-                        <td class="tableitem">
-                          <p class="itemtext">750.00</p>
-                        </td>
-                      </tr>
-                      <tr class="service">
-                        <td class="tableitem">
-                          <p class="itemtext">Exam Fee</p>
-                        </td>
-                        <td class="tableitem"><p class="itemtext">1</p></td>
-                        <td class="tableitem">
-                          <p class="itemtext">750.00</p>
-                        </td>
-                      </tr>
-
-                      <tr class="service">
-                        <td class="tableitem"><p class="itemtext">PTA</p></td>
-                        <td class="tableitem"><p class="itemtext">1</p></td>
-                        <td class="tableitem">
-                          <p class="itemtext">150.00</p>
-                        </td>
-                      </tr>
-                      <tr class="service">
-                        <td class="tableitem">
-                          <p class="itemtext">Development Fund</p>
-                        </td>
-                        <td class="tableitem"><p class="itemtext">1</p></td>
-                        <td class="tableitem"><p class="itemtext">00.00</p></td>
-                      </tr>
-                      <tr class="service">
-                        <td class="tableitem">
-                          <p class="itemtext">Transport</p>
-                        </td>
-                        <td class="tableitem"><p class="itemtext">1</p></td>
-                        <td class="tableitem">
-                          <p class="itemtext">750.00</p>
-                        </td>
-                      </tr>
-
-                      <tr class="tabletitle">
-                        <td></td>
-                        <td class="Rate"><h2>E&OE</h2></td>
-                        <td class="payment"><h2>0.00</h2></td>
-                      </tr>
+                    
 
                       <tr class="tabletitle">
                         <td></td>
@@ -331,7 +232,9 @@ export default {
       feestructure: {},
       changetype:"",
       arreas:0,
-      carried_forward:0
+      carried_forward:0,
+      receipt:false,
+      term:""
     };
   },
   components: {
@@ -348,6 +251,7 @@ export default {
     showModal() {
       this.visible = !this.visible;
     },
+  
     handleSubmit(e) {
       e.preventDefault();
       this.form.validateFields((err, values) => {
@@ -378,6 +282,7 @@ export default {
       this.changetype=change
     },
     handleSelectChange(value) {
+      this.term = value;
          fb.feesCollection.where("term","==",value).where("recordtype","==", this.changetype)
             .onSnapshot((snapshot) => {
               const loadedFees = [];
@@ -388,6 +293,11 @@ export default {
               this.feestructure = loadedFees;
             })
     },
+    handleOk(){
+       this.visible =!this.visible
+      this.receipt =!this.receipt
+      this.$refs.html2Pdf.generatePdf()
+    }
   },
   created() {
     this.$store.dispatch("getRecords", this.student);
