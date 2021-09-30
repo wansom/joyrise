@@ -92,6 +92,20 @@
             </a-select-option>
           </a-select>
         </a-form-item>
+         <a-form-item label="Date" >
+          <a-input
+          type="date"
+            v-decorator="[
+              'date',
+              {
+                rules: [
+                  { required: true, message: 'Please enter the for record!' },
+                ],
+              },
+            ]"
+            placeholder="date"
+          />
+        </a-form-item>
         <a-form-item :wrapper-col="{ span: 12, offset: 5 }">
           <a-button type="primary" html-type="submit">
             Submit
@@ -100,7 +114,7 @@
       </a-form>
     </a-modal>
     <!--modal end-->
-    <!--htnl to pdf model-->
+    <!--html to pdf model-->
     <div>
       <a-modal v-model="receipt" title="Download Receipt" >
         <div>
@@ -135,7 +149,6 @@
 
                 <div id="mid">
                   <div class="info">
-                    <h2>School Info</h2>
                     <p>
                       P.O BOX : 53-5006<br />
                       date : {{ new Date().toDateString() }}<br />
@@ -269,7 +282,8 @@ export default {
             payment_method:values.method,
             term:values.term,
             record_type:values.recordtype,
-            student_id:this.student.id
+            student_id:this.student.id,
+            date: new Date(values.date)
           })
             console.log(
                 "Received values of form: ",
