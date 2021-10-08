@@ -36,7 +36,8 @@
               },
             ]"
             placeholder="Select a term"
-            @change="handleSelectChange"
+              @change="handleSelectChange"
+            
           >
             <a-select-option value="one">
               ONE
@@ -99,6 +100,8 @@
 <script>
 import FeesTable from "../components/tables/FeesTable";
 
+import {mapState} from "vuex";
+
 export default {
   data() {
     return {
@@ -111,6 +114,9 @@ export default {
   components: {
     FeesTable,
   },
+    computed:{
+    ...mapState(["fees"])
+  },
   methods: {
     studentlog() {
       console.log(this.$route.params.student);
@@ -122,19 +128,17 @@ export default {
       e.preventDefault();
       this.form.validateFields((err, values) => {
         if (!err) {
-          console.log("Received values of form: ", values);
+          console.log("Received values of form: ", values,this.fees);
         }
       });
     },
     handleSelectChange(value) {
       console.log(value);
-      this.form.setFieldsValue({
-        note: `Hi, ${value === "male" ? "man" : "lady"}!`,
-      });
     },
   },
   created() {
     this.$store.dispatch("getRecords", this.student);
+    this.$store.dispatch("getFees");
   },
 };
 </script>
