@@ -7,9 +7,7 @@
     :headStyle="{ paddingRight: 0 }"
   >
    <a-modal v-model="visible" title="Basic Modal">
-      <p>Some contents...</p>
-      <p>Some contents...</p>
-      <p>Some contents...</p>
+   
     </a-modal>
     <template #title>
       <h6 class="font-semibold m-0">Assign fees</h6>
