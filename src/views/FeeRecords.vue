@@ -19,25 +19,67 @@
             v-decorator="[
               'amount',
               {
-                rules: [{ required: true, message: 'Please enter the amount paid!' }],
+                rules: [
+                  { required: true, message: 'Please enter the amount paid!' },
+                ],
               },
             ]"
             placeholder="amount in shillings"
           />
         </a-form-item>
-        <a-form-item label="Term">
+      
+        <a-form-item label="Payment method">
+          <a-select
+            v-decorator="[
+              'method',
+              {
+                rules: [
+                  { required: true, message: 'Please select payment method!' },
+                ],
+              },
+            ]"
+            placeholder="Select method"
+           
+          >
+            <a-select-option value="mpesa">
+              MPESA
+            </a-select-option>
+            <a-select-option value="bank">
+              Bank Slip
+            </a-select-option>
+          </a-select>
+        </a-form-item>
+        <a-form-item label="Record Type">
+          <a-select
+            v-decorator="[
+              'recordtype',
+              {
+                rules: [
+                  { required: true, message: 'Please select type of record!' },
+                ],
+              },
+            ]"
+            placeholder="Select record type"
+            @change="recordChange"
+          >
+            <a-select-option value="transport">
+              TRANSPORT
+            </a-select-option>
+            <a-select-option value="tuition">
+              TUITION
+            </a-select-option>
+          </a-select>
+        </a-form-item>
+          <a-form-item label="Term">
           <a-select
             v-decorator="[
               'term',
               {
-                rules: [
-                  { required: true, message: 'Please select the term!' },
-                ],
+                rules: [{ required: true, message: 'Please select the term!' }],
               },
             ]"
             placeholder="Select a term"
-              @change="handleSelectChange"
-            
+            @change="handleSelectChange"
           >
             <a-select-option value="one">
               ONE
@@ -49,17 +91,6 @@
               THREE
             </a-select-option>
           </a-select>
-        </a-form-item>
-          <a-form-item label="Payment Method">
-          <a-input
-            v-decorator="[
-              'method',
-              {
-                rules: [{ required: true, message: 'Please enter the payment method!' }],
-              },
-            ]"
-            placeholder="Payment method"
-          />
         </a-form-item>
         <a-form-item :wrapper-col="{ span: 12, offset: 5 }">
           <a-button type="primary" html-type="submit">
@@ -100,7 +131,8 @@
 <script>
 import FeesTable from "../components/tables/FeesTable";
 
-import {mapState} from "vuex";
+import { mapState } from "vuex";
+import * as fb from "../firebase";
 
 export default {
   data() {
@@ -109,13 +141,17 @@ export default {
       visible: false,
       formLayout: "horizontal",
       form: this.$form.createForm(this, { name: "coordinated" }),
+      feestructure: {},
+      changetype:"",
+      arreas:0,
+      carried_forward:0
     };
   },
   components: {
     FeesTable,
   },
-    computed:{
-    ...mapState(["fees"])
+  computed: {
+    ...mapState(["fees"]),
   },
   methods: {
     studentlog() {
@@ -127,13 +163,42 @@ export default {
     handleSubmit(e) {
       e.preventDefault();
       this.form.validateFields((err, values) => {
-        if (!err) {
-          console.log("Received values of form: ", values,this.fees);
+        if (!err) {  
+          const balance = this.feestructure[0].amount - parseInt(values.amount) 
+          if(balance>0){
+            this.arreas =balance
+          }else{
+            this.carried_forward = balance
+          }
+          fb.recordsCollection.add({
+            amount:values.amount,
+            balance:this.arreas,
+            carried_forward:this.carried_forward,
+            payment_method:values.method,
+            term:values.term,
+            record_type:values.recordtype,
+            student_id:this.student.id
+          })
+            console.log(
+                "Received values of form: ",
+                values,
+              );
         }
       });
     },
+    recordChange(change){
+      this.changetype=change
+    },
     handleSelectChange(value) {
-      console.log(value);
+         fb.feesCollection.where("term","==",value).where("recordtype","==", this.changetype)
+            .onSnapshot((snapshot) => {
+              const loadedFees = [];
+              snapshot.forEach((doc) => {
+                const loadedFee = doc.data();
+                (loadedFee.id = doc.id), loadedFees.push(loadedFee);
+              });
+              this.feestructure = loadedFees;
+            })
     },
   },
   created() {
