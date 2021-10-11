@@ -11,7 +11,8 @@ export default new Vuex.Store({
     userProfile:{},
     grades:[],
     records:[],
-    fees:[]
+    fees:[],
+    reports:[]
   },
   mutations: {
     setUserProfile(state, val){
@@ -28,6 +29,9 @@ export default new Vuex.Store({
     },
     setFees(state, val){
       state.fees = val
+    },
+    setReport(state, val){
+      state.reports = val
     }
   },
   actions: {
@@ -94,6 +98,19 @@ export default new Vuex.Store({
           commit("setStudents", loadedStudents);
         });
     },
+       //get students
+       async getReports({ commit }) {
+
+        fb.tempfees
+          .onSnapshot((snapshot) => {
+            const loadedStudents = [];
+            snapshot.forEach((doc) => {
+              const loadedStudent = doc.data();
+              (loadedStudent.id = doc.id), loadedStudents.push(loadedStudent);
+            });
+            commit("setReport", loadedStudents);
+          });
+      },
     //get grades
           async getClasses({ commit }) {
 

@@ -538,7 +538,7 @@ export default {
               boarding:this.student.boarding
           });
           if (values.amount > 0) {
-            //this.$refs.html2Pdf.generatePdf()
+            this.$refs.html2Pdf.generatePdf()
             this.visible = true;
           }
 

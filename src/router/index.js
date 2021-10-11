@@ -43,6 +43,15 @@ let routes = [
         },
 	},
 	{
+		path: '/feesreports',
+		name: 'FeesReports',
+		layout: "dashboard",
+		component: () => import('../views/FeeReports.vue'),
+		 meta: {
+          requiresAuth: true,
+        },
+	},
+	{
 		path: '/levels',
 		name: 'Levels',
 		layout: "dashboard",
