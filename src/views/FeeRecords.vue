@@ -175,8 +175,8 @@
 
                       <tr class="tabletitle">
                         <td></td>
-                        <td class="Rate"><h2>Total</h2></td>
-                        <td class="payment"><h2>3,644.25</h2></td>
+                        <td class="Rate"><h2>Total:</h2></td>
+                        <td class="payment"><h2>{{paidamount}}</h2></td>
                       </tr>
                     </table>
                   </div>
@@ -247,7 +247,8 @@ export default {
       arreas:0,
       carried_forward:0,
       receipt:false,
-      term:""
+      term:"",
+       paidamount:0
     };
   },
   components: {
@@ -270,6 +271,7 @@ export default {
       this.form.validateFields((err, values) => {
         if (!err) {  
           const balance = this.feestructure[0].amount - parseInt(values.amount) 
+          this.paidamount= values.amount
           if(balance>0){
             this.arreas =balance
           }else{
@@ -284,6 +286,9 @@ export default {
             record_type:values.recordtype,
             student_id:this.student.id,
             date: new Date(values.date)
+          })
+           fb.studentCollection.doc(this.student.id).update({
+            balance:this.arreas
           })
             console.log(
                 "Received values of form: ",
