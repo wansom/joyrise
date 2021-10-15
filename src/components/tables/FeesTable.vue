@@ -172,7 +172,7 @@
                 rules: [{ required: true, message: 'Please select the term!' }],
               },
             ]"
-            :placeholder="row.term"
+            placeholder="rowterm"
             @change="handleSelectChange"
           >
             <a-select-option value="one">
@@ -259,7 +259,7 @@ export default {
       columns,
        receipt:false,
        record:{},
-          visible: false,
+      visible: false,
       formLayout: "horizontal",
       form: this.$form.createForm(this, { name: "coordinated" }),
       feestructure: {},
@@ -295,16 +295,16 @@ export default {
             this.carried_forward = balance
           }
           fb.recordsCollection.doc(this.record.id).update({
-            amount:values.amount,
-            balance:this.arreas,
-            carried_forward:this.carried_forward,
-            payment_method:values.method,
-            term:values.term,
-            record_type:values.recordtype,
-            student_id:this.student.id,
+            amount:values.amount??this.record.amount,
+            balance:this.arreas??this.record.balance,
+            carried_forward:this.carried_forward??this.record.carried_forward,
+            payment_method:values.method??this.record.payment_method,
+            term:values.term??this.record.term,
+            record_type:values.recordtype??this.record.record_type,
+            student_id:this.record.student_id,
             date: new Date(values.date)
           });
-          fb.studentCollection.doc(this.student.id).update({
+          fb.studentCollection.doc(this.record.student_id).update({
             balance:this.arreas
           })
           
