@@ -7,10 +7,7 @@
         </div>
       </div>
     </template>
-    <template  slot-scope="row" >
-        <!--html to pdf model-->
-    <div>
-      <a-modal v-model="receipt" title="Download Receipt" >
+    <template slot-scope="row">
         <div>
           <vue-html2pdf
             :show-layout="true"
@@ -55,9 +52,9 @@
                   <div class="info">
                     <h2>Student Details</h2>
                     <p>
-                      Name : {{ row.id }}<br />
-                      Grade : {{ row.amount }}<br />
-                      Term : {{row.amount}}<br />
+                      Name : {{row.id}}<br />
+                      Grade : {{row.id}}<br />
+                      Term : {{row.id}}<br />
                     </p>
                   </div>
                 </div>
@@ -70,7 +67,7 @@
                       <tr class="tabletitle">
                         <td></td>
                         <td class="Rate"><h2>Total</h2></td>
-                        <td class="payment"><h2>3,644.25</h2></td>
+                        <td class="payment"><h2>{{paidamount}}</h2></td>
                       </tr>
                     </table>
                   </div>
@@ -91,11 +88,7 @@
             </section>
           </vue-html2pdf>
         </div>
-      </a-modal>
-    </div>
-    <!--html to PDF end-->
-    </template>
-
+    </template> 
     <template slot="func" slot-scope="payment_method">
       <div class="author-info">
         <h6 class="m-0">{{ payment_method}}</h6>
@@ -120,14 +113,100 @@
     </template>
     <template slot="date" slot-scope="date">
       <div class="author-info">
-        <h6 class="m-0">{{date}}</h6>
+        <h6 class="m-0">{{date.toDate().toDateString()}}</h6>
+
       </div>
     </template>
-    <template slot="editBtn" slot-scope="row">
+    <template slot="editBtn" slot-scope="row">     
 			<a-button type="link" :data-id="row.key" class="btn-edit" @click="reveal(row)">
-				Edit
+       EDIT      
+			</a-button>
+      <a-modal v-model="receipt" title="Download Receipt">
+         <a-form
+        :form="form"
+        :label-col="{ span: 5 }"
+        :wrapper-col="{ span: 12 }"
+        @submit="handleSubmit"
+      >
+        <a-form-item label="Amount">
+          <a-input
+            v-decorator="[
+              'amount',
+              {
+                rules: [
+                  { required: true, message: 'Please enter the amount paid!' },
+                ],
+              },
+            ]"
+            :placeholder="row.amount"
+          />
+        </a-form-item>
+      
+        <a-form-item label="Payment method">
+          <a-select
+            v-decorator="[
+              'method',
+              {
+                rules: [
+                  { required: true, message: 'Please select payment method!' },
+                ],
+              },
+            ]"
+            :placeholder="row.payment_method"
+           
+          >
+            <a-select-option value="mpesa">
+              MPESA
+            </a-select-option>
+            <a-select-option value="bank">
+              Bank Slip
+            </a-select-option>
+          </a-select>
+        </a-form-item>
        
-			</a-button>   
+          <a-form-item label="Term">
+          <a-select
+            v-decorator="[
+              'term',
+              {
+                rules: [{ required: true, message: 'Please select the term!' }],
+              },
+            ]"
+            :placeholder="row.term"
+            @change="handleSelectChange"
+          >
+            <a-select-option value="one">
+              ONE
+            </a-select-option>
+            <a-select-option value="two">
+              TWO
+            </a-select-option>
+            <a-select-option value="three">
+              THREE
+            </a-select-option>
+          </a-select>
+        </a-form-item>
+         <a-form-item label="Date" >
+          <a-input
+          type="date"
+            v-decorator="[
+              'date',
+              {
+                rules: [
+                  { required: true, message: 'Please enter the for record!' },
+                ],
+              },
+            ]"
+            :placeholder="row.date"
+          />
+        </a-form-item>
+        <a-form-item :wrapper-col="{ span: 12, offset: 5 }">
+          <a-button type="primary" html-type="submit">
+            Submit
+          </a-button>
+        </a-form-item>
+      </a-form>
+      </a-modal>
 		</template>
   </a-table>
 </template>
@@ -164,7 +243,7 @@ const columns = [
    {
     title: "DATE",
     dataIndex: "date",
-    scopedSlots: { customRender: "balance" },
+    scopedSlots: { customRender: "date" },
   },
   	{
 			title: '',
@@ -179,6 +258,16 @@ export default {
     return {
       columns,
        receipt:false,
+       record:{},
+          visible: false,
+      formLayout: "horizontal",
+      form: this.$form.createForm(this, { name: "coordinated" }),
+      feestructure: {},
+      changetype:"",
+      arreas:0,
+      carried_forward:0,
+      term:"",
+      paidamount:0
     };
   },
   computed: {
@@ -189,9 +278,59 @@ export default {
   },
   methods:{
     reveal(row){
-      console.log(row)
       this.receipt =!this.receipt
-    }
+      this.record =row;
+       console.log(this.record)
+    },
+    handleSubmit(e) {
+      e.preventDefault();
+      this.form.validateFields((err, values) => {
+        if (!err) { 
+
+          const balance = this.feestructure[0].amount - parseInt(values.amount) 
+          this.paidamount= values.amount
+          if(balance>0){
+            this.arreas =balance
+          }else{
+            this.carried_forward = balance
+          }
+          fb.recordsCollection.doc(this.record.id).update({
+            amount:values.amount,
+            balance:this.arreas,
+            carried_forward:this.carried_forward,
+            payment_method:values.method,
+            term:values.term,
+            record_type:values.recordtype,
+            student_id:this.student.id,
+            date: new Date(values.date)
+          });
+          fb.studentCollection.doc(this.student.id).update({
+            balance:this.arreas
+          })
+          
+            console.log(
+                "Received values of form: ",
+                values,
+              );
+        }
+      });
+      
+    },
+        recordChange(change){
+      this.changetype=change
+    },
+    handleSelectChange(value) {
+      this.term = value;
+         fb.feesCollection.where("term","==",value).where("recordtype","==", this.changetype)
+            .onSnapshot((snapshot) => {
+              const loadedFees = [];
+              snapshot.forEach((doc) => {
+                const loadedFee = doc.data();
+                (loadedFee.id = doc.id), loadedFees.push(loadedFee);
+              });
+              this.feestructure = loadedFees;
+            })
+    },
   }
 };
 </script>
