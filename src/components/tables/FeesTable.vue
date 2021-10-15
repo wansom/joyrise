@@ -228,6 +228,11 @@
       </a-form>
       </a-modal>
 		</template>
+    <template slot="deleteBtn" slot-scope="row">     
+			<a-button type="link" :data-id="row.key" class="btn-edit" @click="deleterecord(row)">
+       DELETE
+			</a-button>
+		</template>
   </a-table>
 </template>
 <script>
@@ -270,6 +275,11 @@ const columns = [
   	{
 			title: '',
 			scopedSlots: { customRender: 'editBtn' },
+			width: 50,
+		},
+    {
+			title: '',
+			scopedSlots: { customRender: 'deleteBtn' },
 			width: 50,
 		},
 
@@ -353,6 +363,9 @@ export default {
               this.feestructure = loadedFees;
             })
     },
+    deleterecord(row){
+fb.recordsCollection.doc(row.id).delete()
+    }
   }
 };
 </script>

@@ -61,6 +61,12 @@
 
     <router-link  :to="{name:'Editstudent', params:{student:record}}" >EDIT </router-link>
     </a>
+    <a  slot="delete"  slot-scope="record" >
+
+   <a-button type="link" :data-id="row.key" class="btn-edit" @click="deleterecord(record)">
+       DELETE
+			</a-button>
+    </a>
     <p slot="expandedRowRender" slot-scope="record" style="margin: 0">
       <ul>
         <li> Mother's Name: {{ record.mother_name }}</li>
@@ -75,7 +81,7 @@
   </a-table>
 </template>
 <script>
-
+import * as fb from "@/firebase";
 export default {
   	props: {
 			data: {
@@ -139,6 +145,7 @@ export default {
   // { title: 'Carried Forward', dataIndex: 'carried_forward', key: 'carried_forward' },
    {title: 'Fees', dataIndex: '', key: 'y', scopedSlots: { customRender: 'fees' }},
   { dataIndex: '', key: 'x', scopedSlots: { customRender: 'action' }, fixed:"right" },
+   { dataIndex: '', key: 'z', scopedSlots: { customRender: 'delete' }, fixed:"right" },
 ],
          searchText: '',
       searchInput: null,
@@ -159,6 +166,9 @@ export default {
       clearFilters();
       this.searchText = '';
     },
+        deleterecord(row){
+fb.recordsCollection.doc(row.id).delete()
+    }
   }
 };
 </script>
