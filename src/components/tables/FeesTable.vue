@@ -163,7 +163,27 @@
             </a-select-option>
           </a-select>
         </a-form-item>
-       
+       <a-form-item label="Record Type">
+          <a-select
+            v-decorator="[
+              'recordtype',
+              {
+                rules: [
+                  { required: true, message: 'Please select type of record!' },
+                ],
+              },
+            ]"
+            placeholder="Select record type"
+            @change="recordChange"
+          >
+            <a-select-option value="transport">
+              TRANSPORT
+            </a-select-option>
+            <a-select-option value="tuition">
+              TUITION
+            </a-select-option>
+          </a-select>
+        </a-form-item>
           <a-form-item label="Term">
           <a-select
             v-decorator="[
@@ -172,7 +192,7 @@
                 rules: [{ required: true, message: 'Please select the term!' }],
               },
             ]"
-            placeholder="rowterm"
+            :placeholder="row.term"
             @change="handleSelectChange"
           >
             <a-select-option value="one">
@@ -197,7 +217,7 @@
                 ],
               },
             ]"
-            :placeholder="row.date"
+            placeholder="enter date"
           />
         </a-form-item>
         <a-form-item :wrapper-col="{ span: 12, offset: 5 }">
@@ -213,6 +233,8 @@
 <script>
 import { mapState } from "vuex";
 import VueHtml2pdf from "vue-html2pdf";
+import * as fb from "@/firebase";
+
 const columns = [
   {
     title: "AMOUNT PAID",
