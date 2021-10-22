@@ -114,7 +114,7 @@ export default {
             }
           }, 
           },
-  { title: 'Grade', dataIndex: 'grade', key: 'grade',  scopedSlots: {
+  { title: 'County', dataIndex: 'grade', key: 'grade',  scopedSlots: {
             filterDropdown: 'filterDropdown',
             filterIcon: 'filterIcon',
             customRender: 'customRender',
@@ -136,14 +136,14 @@ export default {
             filterIcon: 'filterIcon',
             customRender: 'customRender',
           }, },
-  { title: 'Balance', dataIndex: 'balance', key: 'balance', 
+  { title: 'Constituency', dataIndex: 'balance', key: 'balance', 
     defaultSortOrder: 'descend',
     sorter: (a, b) => a.balance - b.balance,
   scopedSlots: {
             customRender: 'customRender',
           } },
   // { title: 'Carried Forward', dataIndex: 'carried_forward', key: 'carried_forward' },
-   {title: 'Fees', dataIndex: '', key: 'y', scopedSlots: { customRender: 'fees' }},
+   {title: 'Role', dataIndex: '', key: 'y', scopedSlots: { customRender: 'fees' }},
   { dataIndex: '', key: 'x', scopedSlots: { customRender: 'action' }, fixed:"right" },
    { dataIndex: '', key: 'z', scopedSlots: { customRender: 'delete' }, fixed:"right" },
 ],

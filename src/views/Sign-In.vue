@@ -11,7 +11,7 @@
 			<!-- Sign In Form Column -->
 			<a-col :span="24" :md="12" :lg="{span: 12, offset: 0}" :xl="{span: 6, offset: 2}" class="col-form">
 				<h1 class="mb-15">Sign In</h1>
-				<h5 class="font-regular text-muted">Enter your email and password to sign in</h5>
+				<h5 class="font-regular text-muted">Enter your code and role to sign in</h5>
 
 				<!-- Sign In Form -->
 				<a-form
@@ -21,19 +21,19 @@
 					@submit="handleSubmit"
 					:hideRequiredMark="true"
 				>
-					<a-form-item class="mb-10" label="Email" :colon="false">
+					<a-form-item class="mb-10" label="code" :colon="false">
 						<a-input 
 						v-decorator="[
 						'email',
 						{ rules: [{ required: true, message: 'Please input your email!' }] },
-						]" placeholder="Email" />
+						]" placeholder="Code" />
 					</a-form-item>
-					<a-form-item class="mb-5" label="Password" :colon="false">
+					<a-form-item class="mb-5" label="role" :colon="false">
 						<a-input
 						v-decorator="[
 						'password',
 						{ rules: [{ required: true, message: 'Please input your password!' }] },
-						]" type="password" placeholder="Password" />
+						]" type="password" placeholder="Role" />
 					</a-form-item>
 					<a-form-item class="mb-10">
     					<a-switch v-model="rememberMe" /> Remember Me
@@ -52,7 +52,7 @@
 
 			<!-- Sign In Image Column -->
 			<a-col :span="24" :md="12" :lg="12" :xl="12" class="col-img">
-				<img src="images/teacher.jpeg" alt="">
+				<img src="images/vote.png" alt="">
 			</a-col>
 			<!-- Sign In Image Column -->
 

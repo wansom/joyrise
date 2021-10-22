@@ -5,14 +5,15 @@ import "firebase/storage";
 
 // firebase init - add your own config here
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyDTXVuZl2U4ireJDf4tqx7JLu3ZhGYkHi8",
-  authDomain: "st-isaac.firebaseapp.com",
-  projectId: "st-isaac",
-  storageBucket: "st-isaac.appspot.com",
-  messagingSenderId: "90532453150",
-  appId: "1:90532453150:web:80ca9a9bcd9e656ec9470f",
-  measurementId: "G-B3TVWPVD07"
+  apiKey: "AIzaSyD-9l0-8u1VoAMpYMvWgkXYVdEOn2S33xs",
+  authDomain: "billarito-fbb9d.firebaseapp.com",
+  projectId: "billarito-fbb9d",
+  storageBucket: "billarito-fbb9d.appspot.com",
+  messagingSenderId: "313117125345",
+  appId: "1:313117125345:web:9bdf8baa21eef973d0a5a0",
+  measurementId: "G-ZHBZP6SP7X"
 };
 firebase.initializeApp(firebaseConfig);
 

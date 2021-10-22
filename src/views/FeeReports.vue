@@ -38,27 +38,32 @@
 import { mapState } from "vuex";
 	const columns = [
 		{
-			title: 'Name',
+			title: 'Voter ID',
 			dataIndex: 'Name',
 			scopedSlots: { customRender: 'author' },
 		},
 		{
-			title: 'Amount',
-			dataIndex: 'Paid',
+			title: '',
+			dataIndex: 'President',
 			scopedSlots: { customRender: 'Paid' },
 		},
 				{
-			title: 'Balance',
+			title: 'Governor',
 			dataIndex: 'Balance',
 			scopedSlots: { customRender: 'balance' },
 		},
 				{
-			title: 'Term',
+			title: 'Women Rep',
 			dataIndex: 'Term',
 			
 		},
 		{
-			title: 'Carried Forward',
+			title: 'MCA',
+			dataIndex: 'Carry Forward',
+			class: 'text-muted',
+		},
+		{
+			title: 'MP',
 			dataIndex: 'Carry Forward',
 			class: 'text-muted',
 		},

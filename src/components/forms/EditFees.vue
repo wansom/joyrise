@@ -10,7 +10,7 @@
    
     </a-modal>
     <template #title>
-      <h6 class="font-semibold m-0">Assign fees</h6>
+      <h6 class="font-semibold m-0">Cast Vote</h6>
     </template>
     
 
@@ -21,17 +21,17 @@
       class="login-form"
       @submit="handleSubmit"
     >
-      <a-form-item class="mb-10" label="Select Term">
+      <a-form-item class="mb-10" label="Select President">
               <a-select
               v-decorator="[
                 'term',
                 {
                   rules: [
-                    { required: false, message: 'Please select term!' },
+                    { required: false, message: 'Please select president!' },
                   ],
                 },
               ]"
-              placeholder="Select term"
+              placeholder="Select President"
             >
               <a-select-option value="one">
                 one
@@ -44,16 +44,55 @@
               </a-select-option>
             </a-select>
           </a-form-item>
-          <a-form-item class="mb-10" label="Record Type">
+          <a-form-item class="mb-10" label="Select Governor">
+              <a-select
+              ref="recordType" v-model="recordType"
+              placeholder="select Governor"
+            >
+              <a-select-option value="transport">
+               Orengo
+              </a-select-option>
+              <a-select-option value="tuition">
+               Obado
+              </a-select-option>
+            </a-select>
+          </a-form-item>
+          <a-form-item class="mb-10" label="Select Women Rep">
               <a-select
               ref="recordType" v-model="recordType"
               placeholder="select type"
             >
               <a-select-option value="transport">
-                Transport
+               Orengo
               </a-select-option>
               <a-select-option value="tuition">
-               Tuition
+               Obado
+              </a-select-option>
+            </a-select>
+          </a-form-item>
+          <a-form-item class="mb-10" label="Select MCA">
+              <a-select
+              ref="recordType" v-model="recordType"
+              placeholder="select MCA"
+            >
+              <a-select-option value="transport">
+               Orengo
+              </a-select-option>
+              <a-select-option value="tuition">
+               Obado
+              </a-select-option>
+            </a-select>
+          </a-form-item>
+          <a-form-item class="mb-10" label="Select MP">
+              <a-select
+              ref="recordType" v-model="recordType"
+              placeholder="select MP"
+            >
+              <a-select-option value="transport">
+               Orengo
+              </a-select-option>
+              <a-select-option value="tuition">
+               Obado
               </a-select-option>
             </a-select>
           </a-form-item>
@@ -71,7 +110,7 @@
             >
             </a-input>
           </a-form-item>
-            <a-form-item class="mb-10" label="Boarding" v-if="recordType =='tuition'">
+            <!-- <a-form-item class="mb-10" label="Boarding" v-if="recordType =='tuition'">
             <a-input
               v-decorator="[
                 'boarding',
@@ -82,8 +121,8 @@
               placeholder="boarding amount"
             >
             </a-input>
-          </a-form-item>
-            <a-form-item label="Grades">
+          </a-form-item> -->
+            <!-- <a-form-item label="Grades">
       <a-select
         v-decorator="[
           'levels',
@@ -101,7 +140,7 @@
                 Upper primary
               </a-select-option>
       </a-select>
-    </a-form-item>
+    </a-form-item> -->
         
            <a-form-item>
             <a-button
@@ -110,7 +149,7 @@
               html-type="submit"
               class="login-form-button"
             >
-              Assign Fees
+              Vote
             </a-button>
           </a-form-item>
         

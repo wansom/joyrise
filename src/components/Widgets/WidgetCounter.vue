@@ -3,7 +3,7 @@
 	<div>
 		<a-card :bordered="false" class="widget-1">
 		<a-statistic
-			title="Students"
+			title="Total Voters"
 			:value="students.length"
 			:prefix="prefix"
 			:suffix="suffix"

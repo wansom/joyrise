@@ -44,7 +44,7 @@ let routes = [
 	},
 	{
 		path: '/feesreports',
-		name: 'FeesReports',
+		name: 'Reports',
 		layout: "dashboard",
 		component: () => import('../views/FeeReports.vue'),
 		 meta: {
@@ -83,7 +83,7 @@ let routes = [
 	},
 		{
 		path: '/addstudent',
-		name: 'Addstudent',
+		name: 'AddRecord',
 		layout:"dashboard",
 		meta: {
 			layoutClass: 'layout-profile',

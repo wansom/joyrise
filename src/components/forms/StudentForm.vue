@@ -12,7 +12,7 @@
       <p>Some contents...</p>
     </a-modal>
     <template #title>
-      <h6 class="font-semibold m-0">Add Student</h6>
+      <h6 class="font-semibold m-0">Add Voter</h6>
     </template>
 
     <a slot="extra">
@@ -34,8 +34,8 @@
       @submit="handleSubmit"
     >
       <a-tabs default-active-key="1">
-        <a-tab-pane key="1" tab="Student Information">
-          <a-form-item class="mb-10" label="Student's Name">
+        <a-tab-pane key="1" tab="Voter Information">
+          <a-form-item class="mb-10" label=" Name">
             <a-input
               v-decorator="[
                 'name',
@@ -64,7 +64,7 @@
             >
             </a-input>
           </a-form-item>
-          <a-form-item class="mb-10" label="Admission Date">
+          <!-- <a-form-item class="mb-10" label="Admission Date">
             <a-input
               v-decorator="[
                 'admission_date',
@@ -76,8 +76,8 @@
               type="date"
             >
             </a-input>
-          </a-form-item>
-          <a-form-item class="mb-10" label="Reporting Date">
+          </a-form-item> -->
+          <!-- <a-form-item class="mb-10" label="Reporting Date">
             <a-input
               v-decorator="[
                 'reporting_date',
@@ -89,7 +89,7 @@
               type="date"
             >
             </a-input>
-          </a-form-item>
+          </a-form-item> -->
           <a-form-item label="Gender">
             <a-select
               v-decorator="[
@@ -110,13 +110,13 @@
               </a-select-option>
             </a-select>
           </a-form-item>
-          <a-form-item label="Grade">
+          <a-form-item label="County">
             <a-select
               v-decorator="[
                 'grade',
-                { rules: [{ required: true, message: 'No grade selected!' }] },
+                { rules: [{ required: true, message: 'No county selected!' }] },
               ]"
-              placeholder="Select student's grade"
+              placeholder="Select county"
             >
               <a-select-option
                 v-for="grade in grades"
@@ -127,26 +127,26 @@
               </a-select-option>
             </a-select>
           </a-form-item>
-          <a-form-item class="mb-10" label="Boarding School">
+          <!-- <a-form-item class="mb-10" label="Boarding School">
             <a-switch default-checked @change="addBoarding" />
           </a-form-item>
           <a-form-item class="mb-10" label="School Transport">
             <a-switch default-checked @change="addTransport" />
-          </a-form-item>
-          <a-form-item class="mb-10" label="previous School">
+          </a-form-item> -->
+          <a-form-item class="mb-10" label="Constituency">
             <a-input
               v-decorator="[
-                'previous_school',
+                'Constituency',
                 {
                   rules: [{ required: false }],
                 },
               ]"
-              placeholder="Nasibi primary School"
+              placeholder="Nasibi Here"
             >
             </a-input>
           </a-form-item>
         </a-tab-pane>
-        <a-tab-pane key="2" tab="Guardian Details" force-render>
+        <!-- <a-tab-pane key="2" tab="Guardian Details" force-render>
           <a-form-item class="mb-10">
             <a-input
               v-decorator="[
@@ -230,7 +230,7 @@
               ADD STUDENT
             </a-button>
           </a-form-item>
-        </a-tab-pane>
+        </a-tab-pane> -->
       </a-tabs>
     </a-form>
   </a-card>
