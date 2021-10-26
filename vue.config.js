@@ -3,7 +3,7 @@ module.exports = {
 
   chainWebpack: (config) => {
     config.plugin("html").tap((args) => {
-      args[0].title = "St.Isaac";
+      args[0].title = "Brytonstech";
       return args;
     });
   },
