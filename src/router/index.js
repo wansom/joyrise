@@ -46,7 +46,7 @@ let routes = [
 		path: '/feesreports',
 		name: 'Reports',
 		layout: "dashboard",
-		component: () => import('../views/FeeReports.vue'),
+		component: () => import('../views/FeeRecords.vue'),
 		 meta: {
           requiresAuth: true,
         },

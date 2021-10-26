@@ -83,10 +83,10 @@ export default new Vuex.Store({
          json: true,
          code: "bygpvrgjnhgc",
          scope: "",
-         table: "votes",
+         table: "records",
          limit: 1000,
        });
-       console.log(rows)
+       console.log(rows.rows)
        commit("setVotes",rows.rows)
       } catch (error) {
         console.log(error)

@@ -114,7 +114,7 @@
 								</g>
 							</svg>
 						</span>
-						<span class="label">Reports</span>
+						<span class="label">Results</span>
 					</router-link>
 				</a-menu-item>
 				<a-menu-item class="menu-item-header">
