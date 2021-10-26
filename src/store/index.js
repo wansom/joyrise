@@ -3,6 +3,13 @@ import Vuex from 'vuex'
 import * as fb from "../firebase";
 import router from "../router";
 
+import { Api, JsonRpc } from "eosjs";
+import { JsSignatureProvider } from "eosjs/dist/eosjs-jssig";
+
+const rpc = new JsonRpc("https://api.testnet.eos.io");
+
+const myApi = new Api({ rpc, signatureProvider: new JsSignatureProvider([]) });
+
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -11,8 +18,18 @@ export default new Vuex.Store({
     userProfile:{},
     grades:[],
     records:[],
+    voters:[],
     fees:[],
-    reports:[]
+    reports:[],
+    privateKey: "5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3",
+    data: {
+      id: 0,
+      user: "bob",
+      reply_to: 0,
+      content: "This is a test",
+    },
+    error: "",
+    
   },
   mutations: {
     setUserProfile(state, val){
@@ -32,14 +49,61 @@ export default new Vuex.Store({
     },
     setReport(state, val){
       state.reports = val
+    },
+    setVoters(state, val){
+      state.voters = val
     }
   },
   actions: {
     // add students
-    async addStudent({commit},payload){
-      fb.studentCollection.add(payload
-         )
-         commit("setStudents",payload)
+    async getVoters({commit}){
+     try {
+      const rows = await rpc.get_table_rows({
+        json: true,
+        code: "bygpvrgjnhgc",
+        scope: "",
+        table: "voters",
+        limit: 1000,
+      });
+      console.log(rows.rows)
+      commit("setVoters",rows.rows)
+     } catch (error) {
+       console.log(error)
+     }
+        
+    },
+    //enroll voter
+    async enrollVoter({state}){
+      try {
+        myApi.signatureProvider = new JsSignatureProvider([
+          state.privateKey
+        ]);
+        const result = await myApi.transact(
+          {
+            actions: [
+              {
+                account: "talk",
+                name: "post",
+                authorization: [
+                  {
+                    actor: state.data.user,
+                    permission: "active",
+                  },
+                ],
+                data: state.data,
+              },
+            ],
+          },
+          {
+            blocksBehind: 3,
+            expireSeconds: 30,
+          }
+        );
+        console.log(result);
+        setState({ error: "" });
+      } catch (error) {
+        console.log(error);
+      }
     },
     // add fee records
     async addFeeRecords({dispatch},payload){

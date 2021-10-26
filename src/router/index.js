@@ -110,7 +110,7 @@ let routes = [
 	},
 	{
 		path: '/addfees',
-		name: 'Addfees',
+		name: 'Vote',
 		layout:"dashboard",
 		meta: {
 			layoutClass: 'layout-profile',

@@ -4,7 +4,7 @@
 		<a-card :bordered="false" class="widget-1">
 		<a-statistic
 			title="Total Voters"
-			:value="students.length"
+			:value="voters.length"
 			:prefix="prefix"
 			:suffix="suffix"
 			:precision="0"
@@ -61,7 +61,7 @@ import {mapState} from 'vuex';
 		this.$store.dispatch("getstudents");
 		},
 		computed:{
-			...mapState(["students"])
+			...mapState(["voters"])
 		}
 	})
 

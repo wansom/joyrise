@@ -53,6 +53,7 @@
 			<!-- Sign In Image Column -->
 			<a-col :span="24" :md="12" :lg="12" :xl="12" class="col-img">
 				<img src="images/vote.png" alt="">
+				
 			</a-col>
 			<!-- Sign In Image Column -->
 
@@ -62,12 +63,14 @@
 </template>
 
 <script>
-
+import EosService from '@/eosio/EosioService';
 	export default ({
 		data() {
 			return {
 				// Binded model property for "Sign In Form" switch button for "Remember Me" .
 				rememberMe: true,
+				 accountName: 'bygpvrgjnhgc',
+      privateKey: '5K6FHys4VU3ZRwDCkvpmvDZp1QWTwrGAuUqSVyX5uSUb8D8Hspk'
 			}
 		},
 		beforeCreate() {
@@ -88,6 +91,24 @@
 					}
 				});
 			},
+			  handleLogin: function() {
+      EosService.login(this.accountName, this.privateKey)
+        .then(() => {
+          this.$router.push('home');
+        })
+        .catch(err => {
+          alert(err.toString());
+        });
+    },
+    enroll:function() {
+        EosService.vote
+        (this.accountName, this.privateKey).then(()=>{
+          alert("done")
+        }).catch(err=>{
+           alert(err.toString());
+        })
+     
+    }
 		},
 	})
 

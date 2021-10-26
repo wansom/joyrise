@@ -1,5 +1,5 @@
 <template>
-  <a-table :columns="columns" :data-source="data" rowKey="id">
+  <a-table :columns="columns" :data-source="data" rowKey="user">
         <div
       slot="filterDropdown"
       slot-scope="{ setSelectedKeys, selectedKeys, confirm, clearFilters, column }"
@@ -63,7 +63,7 @@
     </a>
     <a  slot="delete"  slot-scope="record" >
 
-   <a-button type="link" :data-id="row.key" class="btn-edit" @click="deleterecord(record)">
+   <a-button type="link" :data-id="record.key" class="btn-edit" @click="deleterecord(record)">
        DELETE
 			</a-button>
     </a>
@@ -94,8 +94,8 @@ export default {
     return {
       columns:[
   { title: 'Name', 
-  dataIndex: 'name',
-   key: 'name',
+  dataIndex: 'username',
+   key: 'username',
            scopedSlots: {
             filterDropdown: 'filterDropdown',
             filterIcon: 'filterIcon',
@@ -114,7 +114,7 @@ export default {
             }
           }, 
           },
-  { title: 'County', dataIndex: 'grade', key: 'grade',  scopedSlots: {
+  { title: 'County', dataIndex: 'county', key: 'county',  scopedSlots: {
             filterDropdown: 'filterDropdown',
             filterIcon: 'filterIcon',
             customRender: 'customRender',
@@ -131,19 +131,20 @@ export default {
               }, 0);
             }
           }, },
-  { title: 'Gender', dataIndex: 'gender', key: 'gender' ,  scopedSlots: {
-            filterDropdown: 'filterDropdown',
-            filterIcon: 'filterIcon',
-            customRender: 'customRender',
-          }, },
-  { title: 'Constituency', dataIndex: 'balance', key: 'balance', 
+
+  { title: 'Constituency', dataIndex: 'constituency', key: 'constituency', 
     defaultSortOrder: 'descend',
     sorter: (a, b) => a.balance - b.balance,
   scopedSlots: {
             customRender: 'customRender',
           } },
+            { title: 'National ID', dataIndex: 'id', key: 'id' ,  scopedSlots: {
+            filterDropdown: 'filterDropdown',
+            filterIcon: 'filterIcon',
+            customRender: 'customRender',
+          }, },
   // { title: 'Carried Forward', dataIndex: 'carried_forward', key: 'carried_forward' },
-   {title: 'Role', dataIndex: '', key: 'y', scopedSlots: { customRender: 'fees' }},
+   { dataIndex: '', key: 'y', scopedSlots: { customRender: 'fees' }},
   { dataIndex: '', key: 'x', scopedSlots: { customRender: 'action' }, fixed:"right" },
    { dataIndex: '', key: 'z', scopedSlots: { customRender: 'delete' }, fixed:"right" },
 ],

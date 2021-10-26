@@ -49,9 +49,9 @@
 				
 				<!-- Projects Table Card -->
 				<CardProjectTable
-					:data="students"
+					:data="voters"
 					:columns="tableColumns"
-					:rowKey="students.id"
+					:rowKey="voters.id"
 				></CardProjectTable>
 				<!-- / Projects Table Card -->
 				
@@ -139,12 +139,12 @@ import {mapState} from "vuex";
 			}
 		},
 		  created(){
-    this.$store.dispatch("getstudents")
+    this.$store.dispatch("getVoters")
 	this.$store.dispatch("getFees")
 	this.$store.dispatch("getReports")
   },
   computed:{
-    ...mapState(["students"])
+    ...mapState(["voters"])
   }
 	})
 

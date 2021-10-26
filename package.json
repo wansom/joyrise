@@ -16,6 +16,7 @@
     "core-js": "3.15.2",
     "csv-parser": "^3.0.0",
     "csvtojson": "^2.0.10",
+    "eosjs": "^22.1.0",
     "firebase": "^8.8.1",
     "fs": "^0.0.1-security",
     "html-pdf-node": "^1.0.7",

@@ -24,7 +24,7 @@
       <a-form-item class="mb-10" label="Select President">
               <a-select
               v-decorator="[
-                'term',
+                'president',
                 {
                   rules: [
                     { required: false, message: 'Please select president!' },
@@ -33,83 +33,118 @@
               ]"
               placeholder="Select President"
             >
-              <a-select-option value="one">
-                one
+              <a-select-option value="ruto">
+                Ruto
               </a-select-option>
-              <a-select-option value="two">
-                two
+              <a-select-option value="raila">
+                Raila
               </a-select-option>
-               <a-select-option value="three">
-                three
+               <a-select-option value="mudavadi">
+                Mudavadi
               </a-select-option>
             </a-select>
           </a-form-item>
           <a-form-item class="mb-10" label="Select Governor">
               <a-select
-              ref="recordType" v-model="recordType"
+                 v-decorator="[
+                'governor',
+                {
+                  rules: [
+                    { required: false, message: 'Please select governor!' },
+                  ],
+                },
+              ]"
               placeholder="select Governor"
             >
-              <a-select-option value="transport">
+              <a-select-option value="orengo">
                Orengo
               </a-select-option>
-              <a-select-option value="tuition">
+              <a-select-option value="obado">
                Obado
               </a-select-option>
             </a-select>
           </a-form-item>
           <a-form-item class="mb-10" label="Select Women Rep">
               <a-select
-              ref="recordType" v-model="recordType"
-              placeholder="select type"
+                v-decorator="[
+                'womenrep',
+                {
+                  rules: [
+                    { required: false, message: 'Please select women rep!' },
+                  ],
+                },
+              ]"
+              placeholder="select women rep"
             >
-              <a-select-option value="transport">
-               Orengo
+              <a-select-option value="waiguru">
+               Waiguru
               </a-select-option>
-              <a-select-option value="tuition">
+              <a-select-option value="shebesh">
                Obado
               </a-select-option>
             </a-select>
           </a-form-item>
           <a-form-item class="mb-10" label="Select MCA">
               <a-select
-              ref="recordType" v-model="recordType"
+                v-decorator="[
+                'mca',
+                {
+                  rules: [
+                    { required: false, message: 'Please select MCA!' },
+                  ],
+                },
+              ]"
               placeholder="select MCA"
             >
-              <a-select-option value="transport">
-               Orengo
+              <a-select-option value="kalonzo">
+               kalonzo
               </a-select-option>
-              <a-select-option value="tuition">
-               Obado
+              <a-select-option value="karua">
+               karua
               </a-select-option>
             </a-select>
           </a-form-item>
           <a-form-item class="mb-10" label="Select MP">
               <a-select
-              ref="recordType" v-model="recordType"
-              placeholder="select MP"
-            >
-              <a-select-option value="transport">
-               Orengo
-              </a-select-option>
-              <a-select-option value="tuition">
-               Obado
-              </a-select-option>
-            </a-select>
-          </a-form-item>
-              <a-form-item class="mb-10" label="Total Amount">
-            <a-input
-              v-decorator="[
-                'amount',
+                v-decorator="[
+                'mp',
                 {
                   rules: [
-                    { required: true, message: 'Enter amount!' },
+                    { required: false, message: 'Please select MP!' },
                   ],
                 },
               ]"
-              placeholder="Enter amount"
+              placeholder="Member of Parliament"
             >
-            </a-input>
+              <a-select-option value="ababu">
+               Ababu Namwamba
+              </a-select-option>
+              <a-select-option value="babu">
+               Babu Owino
+              </a-select-option>
+            </a-select>
           </a-form-item>
+                <a-form-item class="mb-10" label="Select Senator">
+              <a-select
+                v-decorator="[
+                'senator',
+                {
+                  rules: [
+                    { required: false, message: 'Please select Senator!' },
+                  ],
+                },
+              ]"
+              placeholder="Select senator"
+            >
+              <a-select-option value="nyongo">
+               nyongo
+              </a-select-option>
+              <a-select-option value="sonko">
+               sonko
+              </a-select-option>
+            </a-select>
+          </a-form-item>
+    
             <!-- <a-form-item class="mb-10" label="Boarding" v-if="recordType =='tuition'">
             <a-input
               v-decorator="[
