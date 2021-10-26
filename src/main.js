@@ -20,6 +20,7 @@ import DashboardLayout from './layouts/Dashboard.vue'
 import DashboardRTLLayout from './layouts/DashboardRTL.vue'
 import router from './router'
 import { auth } from "./firebase";
+import EasyCamera from 'easy-vue-camera';
 
 // import './plugins/click-away'
 
@@ -31,6 +32,9 @@ import './registerServiceWorker'
 Vue.use(Antd);
 
 Vue.config.productionTip = false
+
+
+Vue.use(EasyCamera);
 
 // Adding template layouts to the vue components.
 Vue.component("layout-default", DefaultLayout);
