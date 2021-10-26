@@ -251,8 +251,7 @@ export default {
       this.form.validateFields((err, values) => {
         if (!err) {
         
-             EosService.vote
-        (this.accountName, this.privateKey,values).then(()=>{
+             EosService.enroll (this.accountName, this.privateKey,values).then(()=>{
           this.$message.success(` voter added successfully.`);
         }).catch(err=>{
             this.$message.error(err.toString());

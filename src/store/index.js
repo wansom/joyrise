@@ -20,6 +20,7 @@ export default new Vuex.Store({
     records:[],
     voters:[],
     fees:[],
+    votes:[],
     reports:[],
     privateKey: "5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3",
     data: {
@@ -52,6 +53,9 @@ export default new Vuex.Store({
     },
     setVoters(state, val){
       state.voters = val
+    },
+    setVotes(state,val){
+      state.votes = val
     }
   },
   actions: {
@@ -72,6 +76,23 @@ export default new Vuex.Store({
      }
         
     },
+     // add students
+     async getVotes({commit}){
+      try {
+       const rows = await rpc.get_table_rows({
+         json: true,
+         code: "bygpvrgjnhgc",
+         scope: "",
+         table: "votes",
+         limit: 1000,
+       });
+       console.log(rows)
+       commit("setVotes",rows.rows)
+      } catch (error) {
+        console.log(error)
+      }
+         
+     },
     //enroll voter
     async enrollVoter({state}){
       try {

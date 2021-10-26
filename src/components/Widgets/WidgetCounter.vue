@@ -58,7 +58,7 @@ import {mapState} from 'vuex';
 			}
 		},
 		mounted(){
-		this.$store.dispatch("getstudents");
+		this.$store.dispatch("getVoters");
 		},
 		computed:{
 			...mapState(["voters"])

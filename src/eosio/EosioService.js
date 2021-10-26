@@ -98,7 +98,7 @@ class EosService {
         });
     });
   }
-  static vote(acc, key,values){
+  static enroll(acc, key,values){
     return new Promise((resolve, reject)=>{
       localStorage.setItem('name_account', acc);
       localStorage.setItem('private_key', key);
@@ -111,6 +111,31 @@ class EosService {
         "ward": values.ward,
         "username": values.first_name + values.last_name,
         "dob": values.dob
+      },).then(()=>{
+      resolve()
+    }).catch(err=>{
+        reject(err)
+      })
+    })
+
+  }
+  static vote(acc, key,values){
+    return new Promise((resolve, reject)=>{
+      localStorage.setItem('name_account', acc);
+      localStorage.setItem('private_key', key);
+      const idone =  Math.floor(Math.random() * 10);
+      const idtwo =  Math.floor(Math.random() * 110);
+      const idthree = idone + idtwo
+      console.log(values)
+      invokeAction('vote',{
+        "id": idthree,
+        "user":"warren",
+        "president": values.president,
+        "governor": values.governor,
+        "womanrep": values.womenrep,
+        "senator": values.senator,
+        "mca": values.mca,
+        "mp": values.mp
       },).then(()=>{
       resolve()
     }).catch(err=>{

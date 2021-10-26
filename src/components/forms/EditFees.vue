@@ -80,7 +80,7 @@
                Waiguru
               </a-select-option>
               <a-select-option value="shebesh">
-               Obado
+               Shebesh
               </a-select-option>
             </a-select>
           </a-form-item>
@@ -195,11 +195,14 @@
 </template>
 
 <script>
+import EosService from '@/eosio/EosioService';
 export default {
 data(){
     return{
         visible :false,
-        recordType:"tuition"
+        recordType:"tuition",
+               accountName: 'bygpvrgjnhgc',
+      privateKey: '5K6FHys4VU3ZRwDCkvpmvDZp1QWTwrGAuUqSVyX5uSUb8D8Hspk',
 
     }
 },
@@ -208,27 +211,23 @@ data(){
     this.form = this.$form.createForm(this, { name: "student_info" });
   },
 methods:{
-handleSubmit(e){
-    e.preventDefault();
-     this.form.validateFields((err, values) => {
-         if(!err){
-           console.log(values,this.recordType)
-        this.$store.dispatch('addFeeRecords',{
-            term:values.term??"",
-        amount:values.amount??"",
-        level:values.levels??"",
-        recordtype:this.recordType??"",
-        boarding:values.boarding??""
-
-        })
-          this.$message.success(`records added successfully.`);
-         }else{
-           this.$message.error(`some values are missing.`);
-         }
-         
-     })
-    
-}
+ handleSubmit(e) {
+      e.preventDefault();
+      this.form.validateFields((err, values) => {
+        if (!err) {
+        
+             EosService.vote (this.accountName, this.privateKey,values).then(()=>{
+          this.$message.success(` voted successfully.`);
+        }).catch(err=>{
+            this.$message.error(err.toString());
+        })         
+        } else {
+          Object.entries(err).forEach((data) => console.log(data));
+          console.log(err);
+          this.$message.error(`check your values and try again`);
+        }
+      });
+    },
 }
 }
 </script>

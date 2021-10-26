@@ -140,7 +140,7 @@ import {mapState} from "vuex";
 		},
 		  created(){
     this.$store.dispatch("getVoters")
-	this.$store.dispatch("getFees")
+	this.$store.dispatch("getVotes")
 	this.$store.dispatch("getReports")
   },
   computed:{

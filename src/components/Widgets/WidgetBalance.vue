@@ -4,7 +4,7 @@
 		<a-card :bordered="false" class="widget-1">
 		<a-statistic
 			title="Votes Cast"
-			value="36050"
+			:value="votes.length"
 			:prefix="prefix"
 			:suffix="suffix"
 			:precision="0"
@@ -20,7 +20,7 @@
 </template>
 
 <script>
-
+import {mapState} from 'vuex';
 	export default ({
 		props: {
 			title: {
@@ -57,6 +57,12 @@
 			return {
 			}
 		},
+		mounted(){
+		this.$store.dispatch("getVotes");
+		},
+				computed:{
+			...mapState(["votes"])
+		}
 	})
 
 </script>
