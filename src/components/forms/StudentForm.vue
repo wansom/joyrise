@@ -12,7 +12,7 @@
       <p>Some contents...</p>
     </a-modal>
     <template #title>
-      <h6 class="font-semibold m-0">Add Student</h6>
+      <h6 class="font-semibold m-0">Add Voter</h6>
     </template>
 
     <a slot="extra">
@@ -34,18 +34,46 @@
       @submit="handleSubmit"
     >
       <a-tabs default-active-key="1">
-        <a-tab-pane key="1" tab="Student Information">
-          <a-form-item class="mb-10" label="Student's Name">
+        <a-tab-pane key="1" tab="Voter Information">
+          <a-form-item class="mb-10" label=" First Name">
             <a-input
               v-decorator="[
-                'name',
+                'first_name',
                 {
                   rules: [
                     { required: true, message: 'Please input first name!' },
                   ],
                 },
               ]"
-              placeholder=" Timothy Nasibi"
+              placeholder=" Timothy"
+            >
+            </a-input>
+          </a-form-item>
+           <a-form-item class="mb-10" label=" Last Name">
+            <a-input
+              v-decorator="[
+                'last_name',
+                {
+                  rules: [
+                    { required: true, message: 'Please input last name!' },
+                  ],
+                },
+              ]"
+              placeholder="Nasibi"
+            >
+            </a-input>
+          </a-form-item>
+                <a-form-item class="mb-10" label=" National ID">
+            <a-input
+              v-decorator="[
+                'id',
+                {
+                  rules: [
+                    { required: true, message: 'Please input National ID!' },
+                  ],
+                },
+              ]"
+              placeholder=" 35276748"
             >
             </a-input>
           </a-form-item>
@@ -54,7 +82,7 @@
           <a-form-item class="mb-10" label="Birth Date">
             <a-input
               v-decorator="[
-                'birth_date',
+                'dob',
                 {
                   rules: [{ required: true, message: 'please pick a date' }],
                 },
@@ -64,7 +92,7 @@
             >
             </a-input>
           </a-form-item>
-          <a-form-item class="mb-10" label="Admission Date">
+          <!-- <a-form-item class="mb-10" label="Admission Date">
             <a-input
               v-decorator="[
                 'admission_date',
@@ -76,8 +104,8 @@
               type="date"
             >
             </a-input>
-          </a-form-item>
-          <a-form-item class="mb-10" label="Reporting Date">
+          </a-form-item> -->
+          <!-- <a-form-item class="mb-10" label="Reporting Date">
             <a-input
               v-decorator="[
                 'reporting_date',
@@ -89,8 +117,8 @@
               type="date"
             >
             </a-input>
-          </a-form-item>
-          <a-form-item label="Gender">
+          </a-form-item> -->
+          <!-- <a-form-item label="Gender">
             <a-select
               v-decorator="[
                 'gender',
@@ -109,127 +137,79 @@
                 female
               </a-select-option>
             </a-select>
-          </a-form-item>
-          <a-form-item label="Grade">
+          </a-form-item> -->
+          <a-form-item label="County">
             <a-select
               v-decorator="[
-                'grade',
-                { rules: [{ required: true, message: 'No grade selected!' }] },
+                'county',
+                { rules: [{ required: true, message: 'No county selected!' }] },
               ]"
-              placeholder="Select student's grade"
+              placeholder="Select county"
             >
-              <a-select-option
-                v-for="grade in grades"
-                :key="grade.id"
-                :value="grade.grade"
-              >
-                {{ grade.grade }}
-              </a-select-option>
+            <a-select-option value="kisumu">
+        Kisumu
+      </a-select-option>
+      <a-select-option value="homabay">
+        Homa Bay
+      </a-select-option>
+       <a-select-option value="nakuru">
+        Nakuru
+      </a-select-option>
             </a-select>
           </a-form-item>
-          <a-form-item class="mb-10" label="Boarding School">
+          <!-- <a-form-item class="mb-10" label="Boarding School">
             <a-switch default-checked @change="addBoarding" />
           </a-form-item>
           <a-form-item class="mb-10" label="School Transport">
             <a-switch default-checked @change="addTransport" />
-          </a-form-item>
-          <a-form-item class="mb-10" label="previous School">
+          </a-form-item> -->
+          <a-form-item class="mb-10" label="Constituency">
             <a-input
               v-decorator="[
-                'previous_school',
+                'constituency',
                 {
                   rules: [{ required: false }],
                 },
               ]"
-              placeholder="Nasibi primary School"
+              placeholder="Kisumu"
             >
             </a-input>
           </a-form-item>
-        </a-tab-pane>
-        <a-tab-pane key="2" tab="Guardian Details" force-render>
-          <a-form-item class="mb-10">
+             <a-form-item class="mb-10" label="Ward">
             <a-input
               v-decorator="[
-                'father_name',
+                'ward',
                 {
-                  rules: [
-                    { required: false, message: 'Please input fathers name!' },
-                  ],
+                  rules: [{ required: false }],
                 },
               ]"
-              placeholder=" Father's Name"
+              placeholder="Kisumu west"
             >
             </a-input>
           </a-form-item>
-          <a-form-item class="mb-10">
-            <a-input
-              v-decorator="[
-                'father_phone',
-                {
-                  rules: [
-                    {
-                      required: false,
-                      message: 'Please input fathers phone name!',
-                    },
-                  ],
-                },
-              ]"
-              placeholder="Father's Phone"
-            >
-            </a-input>
-          </a-form-item>
-          <a-form-item class="mb-10">
-            <a-input
-              v-decorator="[
-                'mother_name',
-                {
-                  rules: [
-                    { required: false, message: 'Please input mothers name!' },
-                  ],
-                },
-              ]"
-              placeholder="mother's name"
-            >
-            </a-input>
-          </a-form-item>
-          <a-form-item class="mb-10">
-            <a-input
-              v-decorator="[
-                'mother_phone',
-                {
-                  rules: [
-                    { required: false, message: 'Please input mothers phone!' },
-                  ],
-                },
-              ]"
-              placeholder="mother's phone"
-            >
-            </a-input>
-          </a-form-item>
-          <a-form-item class="mb-10">
-            <a-input
-              v-decorator="[
-                'home_address',
-                {
-                  rules: [
-                    { required: true, message: 'Please input home address!' },
-                  ],
-                },
-              ]"
-              placeholder="Home Address"
-            >
-            </a-input>
-          </a-form-item>
-           <a-form-item>
+            <a-form-item>
             <a-button
               type="primary"
               block
-              html-type="submit"
-              class="login-form-button"
+               html-type="submit"
+              class="login-form-button" 
             >
-              ADD STUDENT
+              ADD Voter
             </a-button>
           </a-form-item>
+        </a-tab-pane>
+        <a-tab-pane key="2" tab="Upload photo" force-render>
+      
+      <div class='ui container'>
+        <video v-if="!imageData.image" ref="video" class="camera-stream" />
+        <div class='ui divider'></div>
+        <div class="icon-group">   
+            <a-button @click="captureImage">Take Photo</a-button>
+            <a-button @click="rotateImage">Rotate Photo</a-button>
+            <a-button>Upload</a-button>
+            <a-button @click="cancelImage">Cancel</a-button>
+        </div>
+      </div>
         </a-tab-pane>
       </a-tabs>
     </a-form>
@@ -240,6 +220,7 @@
 <script>
 import { mapState } from "vuex";
 import * as fb from "@/firebase.js";
+import EosService from '@/eosio/EosioService';
 export default {
   data() {
     return {
@@ -247,9 +228,17 @@ export default {
       visible: false,
       boarding: false,
       transport: false,
+       accountName: 'bygpvrgjnhgc',
+      privateKey: '5K6FHys4VU3ZRwDCkvpmvDZp1QWTwrGAuUqSVyX5uSUb8D8Hspk',
       headers: {
         authorization: "authorization-text",
+        				
       },
+       mediaStream: null,
+            imageData: {
+                image: '',
+                image_orientation: 0,
+            },
     };
   },
   beforeCreate() {
@@ -257,42 +246,16 @@ export default {
     this.form = this.$form.createForm(this, { name: "student_info" });
   },
   methods: {
-        addBoarding(){
-      this.boarding =!this.boarding;
-    },
-    addTransport(){
-       this.transport =!this.transport;
-    },
     handleSubmit(e) {
       e.preventDefault();
       this.form.validateFields((err, values) => {
         if (!err) {
-          this.$store.dispatch("addStudent",{
-            name: values.name ?? "",
-            birth_date:
-              new Date(values.birth_date) ?? new Date(),
-            father_name: values.father_name ?? null,
-            father_phone:values.father_phone??null,
-            gender: values.gender ?? null,
-            grade: values.grade ?? null,
-            home_address:
-              values.home_address ?? null,
-            mother_name: values.mother_name ?? null,
-            mother_phone:
-              values.mother_phone ?? null,
-            previous_school:
-              values.previous_school ?? null,
-            admission_date:
-              new Date(values.admission_date) ??
-             new Date(),
-            reporting_date:
-              new Date(values.reporting_date) ??
-             new Date(),
-              transport:this.transport,
-              boarding:this.boarding
-          });
-
-          this.$message.success(`student added successfully.`);
+        
+             EosService.enroll (this.accountName, this.privateKey,values).then(()=>{
+          this.$message.success(` voter added successfully.`);
+        }).catch(err=>{
+            this.$message.error(err.toString());
+        })         
         } else {
           Object.entries(err).forEach((data) => console.log(data));
           console.log(err);
@@ -300,6 +263,31 @@ export default {
         }
       });
     },
+    captureImage() {
+            const mediaStreamTrack = this.mediaStream.getVideoTracks()[0]
+            const imageCapture = new window.ImageCapture(mediaStreamTrack)
+            let reader = new FileReader();
+            return imageCapture.takePhoto().then(blob => {
+                reader.readAsDataURL(blob)
+                reader.onload = () => {
+                    this.imageData.image = reader.result;
+                    console.log(reader.result)
+                }
+            })  
+        },
+        rotateImage() {
+            this.imageData.image_orientation = this.imageData.image_orientation + 90; 
+        },
+cancelImage() {
+            this.imageData.image = null;
+            this.showCameraModal = true;
+            navigator.mediaDevices.getUserMedia({video: true})
+            .then(mediaStream => {
+                    this.$refs.video.srcObject = mediaStream;
+                    this.$refs.video.play()
+                    this.mediaStream = mediaStream                   
+            }) 
+        },
     onFileChange(e) {
       var files = e.target.files || e.dataTransfer.files;
       if (!files.length) return;
@@ -357,12 +345,21 @@ export default {
         }
       );
     },
+    enroll(){
+      this.$store.dispatch("enrollVoter");
+    }
   },
   computed: {
     ...mapState(["grades"]),
   },
   mounted() {
-    this.$store.dispatch("getClasses");
+    this.$store.dispatch("getVoters");
+        navigator.mediaDevices.getUserMedia({video: true})
+            .then(mediaStream => {
+                    this.$refs.video.srcObject = mediaStream;
+                    this.$refs.video.play()
+                    this.mediaStream = mediaStream                   
+            })  
   },
 };
 </script>

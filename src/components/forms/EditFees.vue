@@ -10,7 +10,7 @@
    
     </a-modal>
     <template #title>
-      <h6 class="font-semibold m-0">Assign fees</h6>
+      <h6 class="font-semibold m-0">Cast Vote</h6>
     </template>
     
 
@@ -21,57 +21,131 @@
       class="login-form"
       @submit="handleSubmit"
     >
-      <a-form-item class="mb-10" label="Select Term">
+      <a-form-item class="mb-10" label="Select President">
               <a-select
               v-decorator="[
-                'term',
+                'president',
                 {
                   rules: [
-                    { required: false, message: 'Please select term!' },
+                    { required: false, message: 'Please select president!' },
                   ],
                 },
               ]"
-              placeholder="Select term"
+              placeholder="Select President"
             >
-              <a-select-option value="one">
-                one
+              <a-select-option value="ruto">
+                Ruto
               </a-select-option>
-              <a-select-option value="two">
-                two
+              <a-select-option value="raila">
+                Raila
               </a-select-option>
-               <a-select-option value="three">
-                three
+               <a-select-option value="mudavadi">
+                Mudavadi
               </a-select-option>
             </a-select>
           </a-form-item>
-          <a-form-item class="mb-10" label="Record Type">
+          <a-form-item class="mb-10" label="Select Governor">
               <a-select
-              ref="recordType" v-model="recordType"
-              placeholder="select type"
-            >
-              <a-select-option value="transport">
-                Transport
-              </a-select-option>
-              <a-select-option value="tuition">
-               Tuition
-              </a-select-option>
-            </a-select>
-          </a-form-item>
-              <a-form-item class="mb-10" label="Total Amount">
-            <a-input
-              v-decorator="[
-                'amount',
+                 v-decorator="[
+                'governor',
                 {
                   rules: [
-                    { required: true, message: 'Enter amount!' },
+                    { required: false, message: 'Please select governor!' },
                   ],
                 },
               ]"
-              placeholder="Enter amount"
+              placeholder="select Governor"
             >
-            </a-input>
+              <a-select-option value="orengo">
+               Orengo
+              </a-select-option>
+              <a-select-option value="obado">
+               Obado
+              </a-select-option>
+            </a-select>
           </a-form-item>
-            <a-form-item class="mb-10" label="Boarding" v-if="recordType =='tuition'">
+          <a-form-item class="mb-10" label="Select Women Rep">
+              <a-select
+                v-decorator="[
+                'womenrep',
+                {
+                  rules: [
+                    { required: false, message: 'Please select women rep!' },
+                  ],
+                },
+              ]"
+              placeholder="select women rep"
+            >
+              <a-select-option value="waiguru">
+               Waiguru
+              </a-select-option>
+              <a-select-option value="shebesh">
+               Shebesh
+              </a-select-option>
+            </a-select>
+          </a-form-item>
+          <a-form-item class="mb-10" label="Select MCA">
+              <a-select
+                v-decorator="[
+                'mca',
+                {
+                  rules: [
+                    { required: false, message: 'Please select MCA!' },
+                  ],
+                },
+              ]"
+              placeholder="select MCA"
+            >
+              <a-select-option value="kalonzo">
+               kalonzo
+              </a-select-option>
+              <a-select-option value="karua">
+               karua
+              </a-select-option>
+            </a-select>
+          </a-form-item>
+          <a-form-item class="mb-10" label="Select MP">
+              <a-select
+                v-decorator="[
+                'mp',
+                {
+                  rules: [
+                    { required: false, message: 'Please select MP!' },
+                  ],
+                },
+              ]"
+              placeholder="Member of Parliament"
+            >
+              <a-select-option value="ababu">
+               Ababu Namwamba
+              </a-select-option>
+              <a-select-option value="babu">
+               Babu Owino
+              </a-select-option>
+            </a-select>
+          </a-form-item>
+                <a-form-item class="mb-10" label="Select Senator">
+              <a-select
+                v-decorator="[
+                'senator',
+                {
+                  rules: [
+                    { required: false, message: 'Please select Senator!' },
+                  ],
+                },
+              ]"
+              placeholder="Select senator"
+            >
+              <a-select-option value="nyongo">
+               nyongo
+              </a-select-option>
+              <a-select-option value="sonko">
+               sonko
+              </a-select-option>
+            </a-select>
+          </a-form-item>
+    
+            <!-- <a-form-item class="mb-10" label="Boarding" v-if="recordType =='tuition'">
             <a-input
               v-decorator="[
                 'boarding',
@@ -82,8 +156,8 @@
               placeholder="boarding amount"
             >
             </a-input>
-          </a-form-item>
-            <a-form-item label="Grades">
+          </a-form-item> -->
+            <!-- <a-form-item label="Grades">
       <a-select
         v-decorator="[
           'levels',
@@ -101,7 +175,7 @@
                 Upper primary
               </a-select-option>
       </a-select>
-    </a-form-item>
+    </a-form-item> -->
         
            <a-form-item>
             <a-button
@@ -110,7 +184,7 @@
               html-type="submit"
               class="login-form-button"
             >
-              Assign Fees
+              Vote
             </a-button>
           </a-form-item>
         
@@ -121,11 +195,14 @@
 </template>
 
 <script>
+import EosService from '@/eosio/EosioService';
 export default {
 data(){
     return{
         visible :false,
-        recordType:"tuition"
+        recordType:"tuition",
+               accountName: 'bygpvrgjnhgc',
+      privateKey: '5K6FHys4VU3ZRwDCkvpmvDZp1QWTwrGAuUqSVyX5uSUb8D8Hspk',
 
     }
 },
@@ -134,27 +211,23 @@ data(){
     this.form = this.$form.createForm(this, { name: "student_info" });
   },
 methods:{
-handleSubmit(e){
-    e.preventDefault();
-     this.form.validateFields((err, values) => {
-         if(!err){
-           console.log(values,this.recordType)
-        this.$store.dispatch('addFeeRecords',{
-            term:values.term??"",
-        amount:values.amount??"",
-        level:values.levels??"",
-        recordtype:this.recordType??"",
-        boarding:values.boarding??""
-
-        })
-          this.$message.success(`records added successfully.`);
-         }else{
-           this.$message.error(`some values are missing.`);
-         }
-         
-     })
-    
-}
+ handleSubmit(e) {
+      e.preventDefault();
+      this.form.validateFields((err, values) => {
+        if (!err) {
+        
+             EosService.vote (this.accountName, this.privateKey,values).then(()=>{
+          this.$message.success(` voted successfully.`);
+        }).catch(err=>{
+            this.$message.error(err.toString());
+        })         
+        } else {
+          Object.entries(err).forEach((data) => console.log(data));
+          console.log(err);
+          this.$message.error(`check your values and try again`);
+        }
+      });
+    },
 }
 }
 </script>

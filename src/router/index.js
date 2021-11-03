@@ -44,9 +44,9 @@ let routes = [
 	},
 	{
 		path: '/feesreports',
-		name: 'FeesReports',
+		name: 'Reports',
 		layout: "dashboard",
-		component: () => import('../views/FeeReports.vue'),
+		component: () => import('../views/FeeRecords.vue'),
 		 meta: {
           requiresAuth: true,
         },
@@ -83,7 +83,7 @@ let routes = [
 	},
 		{
 		path: '/addstudent',
-		name: 'Addstudent',
+		name: 'AddRecord',
 		layout:"dashboard",
 		meta: {
 			layoutClass: 'layout-profile',
@@ -110,7 +110,7 @@ let routes = [
 	},
 	{
 		path: '/addfees',
-		name: 'Addfees',
+		name: 'Vote',
 		layout:"dashboard",
 		meta: {
 			layoutClass: 'layout-profile',

@@ -3,8 +3,8 @@
 	<div>
 		<a-card :bordered="false" class="widget-1">
 		<a-statistic
-			title="Students"
-			:value="students.length"
+			title="Total Voters"
+			:value="voters.length"
 			:prefix="prefix"
 			:suffix="suffix"
 			:precision="0"
@@ -58,10 +58,10 @@ import {mapState} from 'vuex';
 			}
 		},
 		mounted(){
-		this.$store.dispatch("getstudents");
+		this.$store.dispatch("getVoters");
 		},
 		computed:{
-			...mapState(["students"])
+			...mapState(["voters"])
 		}
 	})
 
