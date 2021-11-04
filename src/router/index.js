@@ -109,7 +109,7 @@ let routes = [
 		component: () => import('../views/FeeRecords.vue'),
 	},
 	{
-		path: '/addfees',
+		path: '/vote',
 		name: 'Vote',
 		layout:"dashboard",
 		meta: {

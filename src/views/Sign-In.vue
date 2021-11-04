@@ -147,7 +147,10 @@ export default {
     //proceed to respective dashboards
     login(){
       if(this.user.role ==="voter"){
-        router.push("/dashboard")
+        router.push("/vote")
+      }
+      else if(this.user.role ==="admin"){
+         router.push("/dashboard")
       }
     },
     captureImage() {

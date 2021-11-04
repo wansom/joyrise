@@ -74,7 +74,7 @@
 					</router-link>
 				</a-menu-item>
 				<a-menu-item>
-					<router-link to="/addfees">
+					<router-link to="/vote">
 						<span class="icon">
 							<svg width="14px" height="14px" viewBox="0 0 14 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 								<title>duplicate</title>
