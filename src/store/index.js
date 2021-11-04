@@ -126,89 +126,16 @@ export default new Vuex.Store({
         console.log(error);
       }
     },
-    // add fee records
-    async addFeeRecords({dispatch},payload){
-      await fb.feesCollection.add({
-        term:payload.term,
-        amount:payload.amount,
-        level:payload.level,
-        recordtype:payload.recordtype,
-        boarding:payload.boarding,
-        date: new Date(),
 
-      })
-    },
     //edit students
     async editStudent({dispatch},payload){
        await fb.studentCollection.doc(payload.id).update(payload).then(()=>{
          console.log("success")
        })
     },
-    // get student fees records
-    async getRecords({commit},payload){
-      fb.recordsCollection.where("student_id","==",payload.id)
-      .onSnapshot((snapshot) => {
-        const loadedRecords = [];
-        snapshot.forEach((doc) => {
-          const loadedRecord = doc.data();
-          (loadedRecord.id = doc.id), loadedRecords.push(loadedRecord);
-        });
-        commit("setRecords", loadedRecords);
-      });
-     console.log(payload.id)
-    },
-    //get fees structure
-    async getFees({commit}){
-      
-      fb.feesCollection
-        .onSnapshot((snapshot) => {
-          const loadedFees = [];
-          snapshot.forEach((doc) => {
-            const loadedFee = doc.data();
-            (loadedFee.id = doc.id), loadedFees.push(loadedFee);
-          });
-          commit("setFees", loadedFees);
-        });
-    },
-    //get students
-        async getstudents({ commit }) {
 
-      fb.studentCollection
-        .onSnapshot((snapshot) => {
-          const loadedStudents = [];
-          snapshot.forEach((doc) => {
-            const loadedStudent = doc.data();
-            (loadedStudent.id = doc.id), loadedStudents.push(loadedStudent);
-          });
-          commit("setStudents", loadedStudents);
-        });
-    },
-       //get students
-       async getReports({ commit }) {
 
-        fb.tempfees
-          .onSnapshot((snapshot) => {
-            const loadedStudents = [];
-            snapshot.forEach((doc) => {
-              const loadedStudent = doc.data();
-              (loadedStudent.id = doc.id), loadedStudents.push(loadedStudent);
-            });
-            commit("setReport", loadedStudents);
-          });
-      },
-    //get grades
-          async getClasses({ commit }) {
 
-      fb.gradesCollection
-        .onSnapshot((snapshot) => {
-          const loadedGrades = [];
-          snapshot.forEach((doc) => {
-            const loadedGrade = doc.data();
-            (loadedGrade.id = doc.id), loadedGrades.push(loadedGrade);
-          });
-          commit("setGrades", loadedGrades);
-        });
-    },
      /**
      * Profile Section Starts Here
      */
@@ -219,7 +146,6 @@ export default new Vuex.Store({
           form.password
         );
         dispatch("fetchUserProfile", user);
-        router.push("/dashboard");
       } catch (err) {
         alert(err.message);
       }

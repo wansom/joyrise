@@ -153,7 +153,7 @@ export default {
     ...mapState(["students"]),
   },
   created() {
-    this.$store.dispatch("getstudents");
+    this.$store.dispatch("getvoters");
   },
 };
 </script>

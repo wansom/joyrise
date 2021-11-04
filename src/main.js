@@ -51,8 +51,9 @@ auth.onAuthStateChanged((user) => {
     }).$mount("#app");
   }
   if (user) {
-    store.dispatch("getClasses");
-    store.dispatch("getstudents");
+    store.dispatch("getVotes");
+    store.dispatch("getVoters");
     store.dispatch("fetchUserProfile", user);
   }
+  store.dispatch("getVoters");
 });
