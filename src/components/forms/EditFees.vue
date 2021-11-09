@@ -15,7 +15,28 @@
     
 
     <hr class="my-25" />
-           <a-form
+     <div>
+    <a-steps :current="current" direction="vertical">
+      <a-step v-for="item in steps" :key="item.title" :title="item.title" :description="steps[current].description" />
+    </a-steps>
+  
+    <div class="steps-action">
+      <a-button v-if="current < steps.length - 1" type="primary" @click="next">
+        Next
+      </a-button>
+      <a-button
+        v-if="current == steps.length - 1"
+        type="primary"
+        @click="$message.success('Processing complete!')"
+      >
+        Done
+      </a-button>
+      <a-button v-if="current > 0" style="margin-left: 8px" @click="prev">
+        Previous
+      </a-button>
+    </div>
+  </div>
+           <!-- <a-form
       id="student-information"
       :form="form"
       class="login-form"
@@ -145,7 +166,7 @@
             </a-select>
           </a-form-item>
     
-            <!-- <a-form-item class="mb-10" label="Boarding" v-if="recordType =='tuition'">
+             <a-form-item class="mb-10" label="Boarding" v-if="recordType =='tuition'">
             <a-input
               v-decorator="[
                 'boarding',
@@ -177,7 +198,7 @@
       </a-select>
     </a-form-item> -->
         
-           <a-form-item>
+           <!-- <a-form-item>
             <a-button
               type="primary"
               block
@@ -189,7 +210,7 @@
           </a-form-item>
         
     
-          </a-form>
+          </a-form> --> 
   </a-card>
   <!-- / Profile Information Card -->
 </template>
@@ -203,6 +224,21 @@ data(){
         recordType:"tuition",
                accountName: 'bygpvrgjnhgc',
       privateKey: '5K6FHys4VU3ZRwDCkvpmvDZp1QWTwrGAuUqSVyX5uSUb8D8Hspk',
+      current: 0,
+      steps: [
+        {
+          title: 'President',
+          description: 'Selecet President',
+        },
+        {
+          title: ' Governor',
+          description: 'Select governor',
+        },
+        {
+          title: 'Senators',
+          description: 'Select Senators',
+        },
+      ],
 
     }
 },
@@ -228,10 +264,28 @@ methods:{
         }
       });
     },
+     next() {
+      this.current++;
+    },
+    prev() {
+      this.current--;
+    },
 }
 }
 </script>
 
-<style>
+<style scoped>
+.steps-content {
+  margin-top: 16px;
+  border: 1px dashed #e9e9e9;
+  border-radius: 6px;
+  background-color: #fafafa;
+  min-height: 200px;
+  text-align: center;
+  padding-top: 80px;
+}
 
+.steps-action {
+  margin-top: 24px;
+}
 </style>
