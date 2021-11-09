@@ -32,6 +32,7 @@ const gradesCollection = db.collection("classes");
 const feesCollection = db.collection("fees");
 const recordsCollection = db.collection("records");
 const tempfees = db.collection("tempfees");
+const candidatesCollection = db.collection("candidates");
 
 
 
@@ -48,6 +49,7 @@ export {
   gradesCollection,
   feesCollection,
   recordsCollection,
-  tempfees
+  tempfees,
+  candidatesCollection
 
 };

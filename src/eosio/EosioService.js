@@ -107,7 +107,7 @@ class EosService {
         "user": values.first_name,
         "county": values.county,
         "constituency": values.constituency,
-        "role": "admin",
+        "role": "voter",
         "ward": values.ward,
         "username": values.first_name + values.last_name,
         "dob": values.dob
