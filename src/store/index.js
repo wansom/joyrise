@@ -21,6 +21,7 @@ export default new Vuex.Store({
     voters:[],
     fees:[],
     votes:[],
+    candidates:[],
     reports:[],
     privateKey: "5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3",
     data: {
@@ -56,6 +57,9 @@ export default new Vuex.Store({
     },
     setVotes(state,val){
       state.votes = val
+    },
+    setCandidates(state, val){
+      state.candidates = val
     }
   },
   actions: {
@@ -76,6 +80,7 @@ export default new Vuex.Store({
      }
         
     },
+
      // add students
      async getVotes({commit}){
       try {
@@ -125,6 +130,17 @@ export default new Vuex.Store({
       } catch (error) {
         console.log(error);
       }
+    },
+    //get candidates
+    async getCandidates({ commit }) {
+      fb.candidatesCollection.onSnapshot((snapshot) => {
+          const loadedCandidates = [];
+          snapshot.forEach((doc) => {
+            const loadedCandidate = doc.data();
+            (loadedCandidate.id = doc.id), loadedCandidates.push(loadedCandidate);
+          });
+          commit("setCandidates", loadedCandidates);
+        });
     },
 
     //edit students

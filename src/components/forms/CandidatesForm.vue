@@ -213,7 +213,7 @@
                html-type="submit"
               class="login-form-button" 
             >
-              ADD Voter
+              ADD Candidate
             </a-button>
           </a-form-item>
         </a-tab-pane>
@@ -376,7 +376,7 @@ cancelImage() {
     }
   },
   computed: {
-    ...mapState(["grades"]),
+    ...mapState(["grades","candidates"]),
   },
   mounted() {
     this.$store.dispatch("getVoters");

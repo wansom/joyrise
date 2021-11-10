@@ -17,7 +17,33 @@
     <hr class="my-25" />
      <div>
     <a-steps :current="current" direction="vertical">
-      <a-step v-for="item in steps" :key="item.title" :title="item.title" :description="steps[current].description" />
+        <a-step>
+      <!-- <span slot="title">Finished</span> -->
+      <template slot="title">
+       Presidential Candidates
+      </template>
+      <div slot="description">
+        <a-row type="flex" >
+           <a-col :span="4" v-for="candidate in voters" :key="candidate.id">
+        <a-card>
+          <a-avatar src="" />
+        </a-card>
+      </a-col>
+        </a-row>
+      </div>
+    </a-step>  <a-step>
+      <!-- <span slot="title">Finished</span> -->
+      <template slot="title">
+        Governor Candidates
+      </template>
+      <span slot="description">This is a description.</span>
+    </a-step>  <a-step>
+      <!-- <span slot="title">Finished</span> -->
+      <template slot="title">
+       Senate Candidates
+      </template>
+      <span slot="description">This is a description.</span>
+    </a-step>
     </a-steps>
   
     <div class="steps-action">
@@ -35,188 +61,14 @@
         Previous
       </a-button>
     </div>
-  </div>
-           <!-- <a-form
-      id="student-information"
-      :form="form"
-      class="login-form"
-      @submit="handleSubmit"
-    >
-      <a-form-item class="mb-10" label="Select President">
-              <a-select
-              v-decorator="[
-                'president',
-                {
-                  rules: [
-                    { required: false, message: 'Please select president!' },
-                  ],
-                },
-              ]"
-              placeholder="Select President"
-            >
-              <a-select-option value="ruto">
-                Ruto
-              </a-select-option>
-              <a-select-option value="raila">
-                Raila
-              </a-select-option>
-               <a-select-option value="mudavadi">
-                Mudavadi
-              </a-select-option>
-            </a-select>
-          </a-form-item>
-          <a-form-item class="mb-10" label="Select Governor">
-              <a-select
-                 v-decorator="[
-                'governor',
-                {
-                  rules: [
-                    { required: false, message: 'Please select governor!' },
-                  ],
-                },
-              ]"
-              placeholder="select Governor"
-            >
-              <a-select-option value="orengo">
-               Orengo
-              </a-select-option>
-              <a-select-option value="obado">
-               Obado
-              </a-select-option>
-            </a-select>
-          </a-form-item>
-          <a-form-item class="mb-10" label="Select Women Rep">
-              <a-select
-                v-decorator="[
-                'womenrep',
-                {
-                  rules: [
-                    { required: false, message: 'Please select women rep!' },
-                  ],
-                },
-              ]"
-              placeholder="select women rep"
-            >
-              <a-select-option value="waiguru">
-               Waiguru
-              </a-select-option>
-              <a-select-option value="shebesh">
-               Shebesh
-              </a-select-option>
-            </a-select>
-          </a-form-item>
-          <a-form-item class="mb-10" label="Select MCA">
-              <a-select
-                v-decorator="[
-                'mca',
-                {
-                  rules: [
-                    { required: false, message: 'Please select MCA!' },
-                  ],
-                },
-              ]"
-              placeholder="select MCA"
-            >
-              <a-select-option value="kalonzo">
-               kalonzo
-              </a-select-option>
-              <a-select-option value="karua">
-               karua
-              </a-select-option>
-            </a-select>
-          </a-form-item>
-          <a-form-item class="mb-10" label="Select MP">
-              <a-select
-                v-decorator="[
-                'mp',
-                {
-                  rules: [
-                    { required: false, message: 'Please select MP!' },
-                  ],
-                },
-              ]"
-              placeholder="Member of Parliament"
-            >
-              <a-select-option value="ababu">
-               Ababu Namwamba
-              </a-select-option>
-              <a-select-option value="babu">
-               Babu Owino
-              </a-select-option>
-            </a-select>
-          </a-form-item>
-                <a-form-item class="mb-10" label="Select Senator">
-              <a-select
-                v-decorator="[
-                'senator',
-                {
-                  rules: [
-                    { required: false, message: 'Please select Senator!' },
-                  ],
-                },
-              ]"
-              placeholder="Select senator"
-            >
-              <a-select-option value="nyongo">
-               nyongo
-              </a-select-option>
-              <a-select-option value="sonko">
-               sonko
-              </a-select-option>
-            </a-select>
-          </a-form-item>
-    
-             <a-form-item class="mb-10" label="Boarding" v-if="recordType =='tuition'">
-            <a-input
-              v-decorator="[
-                'boarding',
-                {
-                  rules: [{ required: false }],
-                },
-              ]"
-              placeholder="boarding amount"
-            >
-            </a-input>
-          </a-form-item> -->
-            <!-- <a-form-item label="Grades">
-      <a-select
-        v-decorator="[
-          'levels',
-          { rules: [{ required: true, message: 'No grade selected!' }] },
-        ]"
-        placeholder="Select levels"
-      >
-        <a-select-option value="ecd">
-                ECD
-              </a-select-option>
-              <a-select-option value="lowerprimary">
-                lower Primary
-              </a-select-option>
-               <a-select-option value="upperprimary">
-                Upper primary
-              </a-select-option>
-      </a-select>
-    </a-form-item> -->
-        
-           <!-- <a-form-item>
-            <a-button
-              type="primary"
-              block
-              html-type="submit"
-              class="login-form-button"
-            >
-              Vote
-            </a-button>
-          </a-form-item>
-        
-    
-          </a-form> --> 
+  </div>     
   </a-card>
   <!-- / Profile Information Card -->
 </template>
 
 <script>
 import EosService from '@/eosio/EosioService';
+import {mapState} from 'vuex';
 export default {
 data(){
     return{
@@ -225,6 +77,7 @@ data(){
                accountName: 'bygpvrgjnhgc',
       privateKey: '5K6FHys4VU3ZRwDCkvpmvDZp1QWTwrGAuUqSVyX5uSUb8D8Hspk',
       current: 0,
+      selected:[],
       steps: [
         {
           title: 'President',
@@ -270,6 +123,15 @@ methods:{
     prev() {
       this.current--;
     },
+},
+computed:{
+  ...mapState(['voters'])
+},
+watch:{
+  getCandiate:function(){
+    return this.candidates.filter(candidate=>candidate.role === "Admin")
+    
+  }
 }
 }
 </script>
