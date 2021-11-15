@@ -23,12 +23,12 @@
        Presidential Candidates
       </template>
       <div slot="description">
-    <a-radio-group v-model="governor"  v-for="candidate in candidates" :key="candidate.id" >
+    <a-radio-group v-model="president"  v-for="candidate in candidates" :key="candidate.id" >
           <a-card  class="m-16"> 
           <a-avatar :src="candidate.photo"/>
-          <a-radio-button  :value="candidate.first_name" >
+          <a-radio  :value="candidate.first_name" >
           {{candidate.first_name}}
-        </a-radio-button></a-card>
+        </a-radio></a-card>
         </a-radio-group>
       </div>
     </a-step>  <a-step>
@@ -39,9 +39,9 @@
       <span slot="description"><a-radio-group v-model="governor"  v-for="candidate in governors" :key="candidate.id" >
           <a-card  class="m-16"> 
           <a-avatar :src="candidate.photo"/>
-          <a-radio-button  :value="candidate.first_name" >
+          <a-radio :value="candidate.first_name" >
           {{candidate.first_name}}
-        </a-radio-button></a-card>
+        </a-radio></a-card>
         </a-radio-group></span>
     </a-step>  <a-step>
       <!-- <span slot="title">Finished</span> -->
@@ -49,12 +49,12 @@
        Senate Candidates
       </template>
       <span slot="description">
-        <a-radio-group v-model="governor"  v-for="candidate in senators" :key="candidate.id" >
+        <a-radio-group v-model="senator"  v-for="candidate in senators" :key="candidate.id" >
           <a-card  class="m-16"> 
           <a-avatar :src="candidate.photo"/>
-          <a-radio-button  :value="candidate.first_name" >
+          <a-radio :value="candidate.first_name" >
           {{candidate.first_name}}
-        </a-radio-button></a-card>
+        </a-radio></a-card>
         </a-radio-group>
       </span>
     </a-step>
@@ -67,7 +67,7 @@
       <a-button
         v-if="current == steps.length - 1"
         type="primary"
-        @click="$message.success('Processing complete!')"
+        @click="handleSubmit"
       >
         Done
       </a-button>
@@ -92,7 +92,11 @@ data(){
       privateKey: '5K6FHys4VU3ZRwDCkvpmvDZp1QWTwrGAuUqSVyX5uSUb8D8Hspk',
       current: 0,
       selected:[],
-      governor:"",
+      governor:"joho",
+      president:"uhuru",
+      senator:"kipchoge",
+      mp:"wainaina",
+      mca:"ruto",
       steps: [
         {
           title: 'President',
@@ -117,20 +121,21 @@ data(){
 methods:{
  handleSubmit(e) {
       e.preventDefault();
-      this.form.validateFields((err, values) => {
-        if (!err) {
-        
-             EosService.vote (this.accountName, this.privateKey,values).then(()=>{
+       EosService.vote (this.accountName, this.privateKey,{
+               "president": this.president,
+               "governor": this.governor,
+               "womanrep": this.womenreps,
+               "mp":this.mp,
+               "senator": this.senators,
+               "mca":this.mca
+
+
+             }).then(()=>{
           this.$message.success(` voted successfully.`);
         }).catch(err=>{
             this.$message.error(err.toString());
-        })         
-        } else {
-          Object.entries(err).forEach((data) => console.log(data));
-          console.log(err);
-          this.$message.error(`check your values and try again`);
-        }
-      });
+              this.$message.error(`check your values and try again`);
+        }) 
     },
      next() {
       this.current++;
