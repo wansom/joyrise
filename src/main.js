@@ -53,7 +53,12 @@ auth.onAuthStateChanged((user) => {
   if (user) {
     store.dispatch("getVotes");
     store.dispatch("getVoters");
+
     store.dispatch("fetchUserProfile", user);
   }
   store.dispatch("getVoters");
+  store.dispatch("getCandidates");
+  store.dispatch("getGovernors");
+  store.dispatch("getSenators");
+
 });

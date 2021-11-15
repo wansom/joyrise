@@ -23,26 +23,40 @@
        Presidential Candidates
       </template>
       <div slot="description">
-        <a-row type="flex" >
-           <a-col :span="4" v-for="candidate in voters" :key="candidate.id">
-        <a-card>
-          <a-avatar src="" />
-        </a-card>
-      </a-col>
-        </a-row>
+    <a-radio-group v-model="governor"  v-for="candidate in candidates" :key="candidate.id" >
+          <a-card  class="m-16"> 
+          <a-avatar :src="candidate.photo"/>
+          <a-radio-button  :value="candidate.first_name" >
+          {{candidate.first_name}}
+        </a-radio-button></a-card>
+        </a-radio-group>
       </div>
     </a-step>  <a-step>
       <!-- <span slot="title">Finished</span> -->
       <template slot="title">
-        Governor Candidates
+        Select governor
       </template>
-      <span slot="description">This is a description.</span>
+      <span slot="description"><a-radio-group v-model="governor"  v-for="candidate in governors" :key="candidate.id" >
+          <a-card  class="m-16"> 
+          <a-avatar :src="candidate.photo"/>
+          <a-radio-button  :value="candidate.first_name" >
+          {{candidate.first_name}}
+        </a-radio-button></a-card>
+        </a-radio-group></span>
     </a-step>  <a-step>
       <!-- <span slot="title">Finished</span> -->
       <template slot="title">
        Senate Candidates
       </template>
-      <span slot="description">This is a description.</span>
+      <span slot="description">
+        <a-radio-group v-model="governor"  v-for="candidate in senators" :key="candidate.id" >
+          <a-card  class="m-16"> 
+          <a-avatar :src="candidate.photo"/>
+          <a-radio-button  :value="candidate.first_name" >
+          {{candidate.first_name}}
+        </a-radio-button></a-card>
+        </a-radio-group>
+      </span>
     </a-step>
     </a-steps>
   
@@ -78,6 +92,7 @@ data(){
       privateKey: '5K6FHys4VU3ZRwDCkvpmvDZp1QWTwrGAuUqSVyX5uSUb8D8Hspk',
       current: 0,
       selected:[],
+      governor:"",
       steps: [
         {
           title: 'President',
@@ -125,7 +140,7 @@ methods:{
     },
 },
 computed:{
-  ...mapState(['voters'])
+  ...mapState(['candidates','governors','senators','womenreps'])
 },
 watch:{
   getCandiate:function(){

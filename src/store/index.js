@@ -22,6 +22,10 @@ export default new Vuex.Store({
     fees:[],
     votes:[],
     candidates:[],
+    governors:[],
+    womenreps:[],
+    senators:[],
+    mca:[],
     reports:[],
     privateKey: "5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3",
     data: {
@@ -60,6 +64,15 @@ export default new Vuex.Store({
     },
     setCandidates(state, val){
       state.candidates = val
+    },
+    setGovernors(state, val){
+      state.governors = val
+    },
+    setSenators(state, val){
+      state.senators = val
+    },
+    setWomenreps(state, val){
+      state.womenreps = val
     }
   },
   actions: {
@@ -133,7 +146,7 @@ export default new Vuex.Store({
     },
     //get candidates
     async getCandidates({ commit }) {
-      fb.candidatesCollection.onSnapshot((snapshot) => {
+      fb.candidatesCollection.where("position","==", "President").onSnapshot((snapshot) => {
           const loadedCandidates = [];
           snapshot.forEach((doc) => {
             const loadedCandidate = doc.data();
@@ -142,6 +155,28 @@ export default new Vuex.Store({
           commit("setCandidates", loadedCandidates);
         });
     },
+     //get governors
+     async getGovernors({ commit }) {
+      fb.candidatesCollection.where("position","==", "governor").onSnapshot((snapshot) => {
+          const loadedCandidates = [];
+          snapshot.forEach((doc) => {
+            const loadedCandidate = doc.data();
+            (loadedCandidate.id = doc.id), loadedCandidates.push(loadedCandidate);
+          });
+          commit("setGovernors", loadedCandidates);
+        });
+    },
+        //get governors
+        async getSenators({ commit }) {
+          fb.candidatesCollection.where("position","==", "senator").onSnapshot((snapshot) => {
+              const loadedCandidates = [];
+              snapshot.forEach((doc) => {
+                const loadedCandidate = doc.data();
+                (loadedCandidate.id = doc.id), loadedCandidates.push(loadedCandidate);
+              });
+              commit("setSenators", loadedCandidates);
+            });
+        },
 
     //edit students
     async editStudent({dispatch},payload){
