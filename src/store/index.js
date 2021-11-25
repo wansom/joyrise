@@ -211,7 +211,6 @@ export default new Vuex.Store({
         zip: form.zip,
         state: form.state,
         phone: form.phone,
-        about: form.about
       });
       dispatch("fetchUserProfile", user);
     }
