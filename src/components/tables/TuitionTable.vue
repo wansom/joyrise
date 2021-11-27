@@ -37,6 +37,8 @@
         <h6 class="m-0">{{date.toDate().toDateString()}}</h6>
       </div>
     </template>
+      <button class="primary" slot="delete"  slot-scope="record" @click="()=>{
+      deleteFees(record)}">Delete</button>
   </a-table>
 </template>
 <script>
@@ -74,6 +76,7 @@ const columns = [
     dataIndex: "date",
     scopedSlots: { customRender: "date" },
   },
+  { title: 'Delete', dataIndex: '', key: 'w', scopedSlots: { customRender: 'delete' }, fixed:"right" },
 
 ];
 
@@ -86,5 +89,12 @@ export default {
   computed: {
     ...mapState(["fees"]),
   },
+  methods:{
+    deleteFees(row){
+this.$store.dispatch('deleteStructure',{
+  id:row.id
+})
+    }
+  }
 };
 </script>

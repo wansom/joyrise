@@ -208,6 +208,10 @@
       </a-form>
       </a-modal>
 		</template>
+     <template slot="deleteBtn" slot-scope="row">     
+			<a-button type="link" :data-id="row.key" class="btn-edit" @click="deleteRow(row)">
+       Delete     
+			</a-button></template>
   </a-table>
 </template>
 <script>
@@ -248,6 +252,11 @@ const columns = [
   	{
 			title: '',
 			scopedSlots: { customRender: 'editBtn' },
+			width: 50,
+		},
+    	{
+			title: '',
+			scopedSlots: { customRender: 'deleteBtn' },
 			width: 50,
 		},
 
@@ -331,6 +340,11 @@ export default {
               this.feestructure = loadedFees;
             })
     },
+    deleteRow(row){
+      this.$store.dispatch('deleteRecord',{
+        id:row.id
+      })
+    }
   }
 };
 </script>

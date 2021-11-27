@@ -61,6 +61,8 @@
 
     <router-link  :to="{name:'Editstudent', params:{student:record}}" >EDIT </router-link>
     </a>
+    <button class="primary" slot="delete"  slot-scope="record" @click="()=>{
+      deleteStudent(record)}">Delete</button>
     <p slot="expandedRowRender" slot-scope="record" style="margin: 0">
       <ul>
         <li> Mother's Name: {{ record.mother_name }}</li>
@@ -136,9 +138,10 @@ export default {
   scopedSlots: {
             customRender: 'customRender',
           } },
-  // { title: 'Carried Forward', dataIndex: 'carried_forward', key: 'carried_forward' },
+  
    {title: 'Fees', dataIndex: '', key: 'y', scopedSlots: { customRender: 'fees' }},
-  { dataIndex: '', key: 'x', scopedSlots: { customRender: 'action' }, fixed:"right" },
+  { dataIndex: '', key: 'x', scopedSlots: { customRender: 'action' } },
+   { title: 'Delete', dataIndex: '', key: 'w', scopedSlots: { customRender: 'delete' }, fixed:"right" },
 ],
          searchText: '',
       searchInput: null,
@@ -159,6 +162,11 @@ export default {
       clearFilters();
       this.searchText = '';
     },
+     deleteStudent(record){
+       this.$store.dispatch('deleteStudent',{
+         id:record.id
+       })
+     }
   }
 };
 </script>
