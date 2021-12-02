@@ -94,6 +94,9 @@ export default {
 this.$store.dispatch('deleteStructure',{
   id:row.id
 })
+    },
+    showPrinters(){
+  
     }
   }
 };

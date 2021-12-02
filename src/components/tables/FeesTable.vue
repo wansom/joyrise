@@ -7,86 +7,9 @@
         </div>
       </div>
     </template>
-    <template slot-scope="row">
+    <template >
         <div>
-          <vue-html2pdf
-            :show-layout="true"
-            :float-layout="false"
-            :enable-download="true"
-            :preview-modal="false"
-            :paginate-elements-by-height="1400"
-            :filename="student.name"
-            :pdf-quality="2"
-            :manual-pagination="false"
-            pdf-format="a4"
-            pdf-orientation="portrait"
-            pdf-content-width="500px"
-            @progress="onProgress($event)"
-            @hasStartedGeneration="hasStartedGeneration()"
-            @hasGenerated="hasGenerated($event)"
-            ref="html2Pdf"
-          >
-            <section slot="pdf-content">
-              <!-- PDF Content Here -->
-              <div id="invoice-POS">
-                <center id="top">
-                  <div class="logo"></div>
-                  <div class="info">
-                    <h2>St.Isaac Academy</h2>
-                  </div>
-                  <!--End Info-->
-                </center>
-                <!--End InvoiceTop-->
-
-                <div id="mid">
-                  <div class="info">
-                    <p>
-                      P.O BOX : 53-5006<br />
-                      date : {{ new Date().toDateString() }}<br />
-                      Phone : 555-555-5555<br />
-                    </p>
-                  </div>
-                </div>
-                <!--End Invoice Mid-->
-                <div id="mid">
-                  <div class="info">
-                    <h2>Student Details</h2>
-                    <p>
-                      Name : {{row.id}}<br />
-                      Grade : {{row.id}}<br />
-                      Term : {{row.id}}<br />
-                    </p>
-                  </div>
-                </div>
-
-                <div id="bot">
-                  <div id="table">
-                    <table>
-                    
-
-                      <tr class="tabletitle">
-                        <td></td>
-                        <td class="Rate"><h2>Total</h2></td>
-                        <td class="payment"><h2>{{paidamount}}</h2></td>
-                      </tr>
-                    </table>
-                  </div>
-                  <!--End Table-->
-
-                  <div id="legalcopy">
-                    <p class="legal">
-                      <strong>Thank you for you!</strong> <br />
-                      Balance_______________________________ <br /><br />
-                      signature ______________________________ <br />
-                      All fees shuld be paid to the official school bank account
-                      or paybill.
-                    </p>
-                  </div>
-                </div>
-                <!--End InvoiceBot-->
-              </div>
-            </section>
-          </vue-html2pdf>
+        hello
         </div>
     </template> 
     <template slot="func" slot-scope="payment_method">
@@ -209,14 +132,117 @@
       </a-modal>
 		</template>
      <template slot="deleteBtn" slot-scope="row">     
-			<a-button type="link" :data-id="row.key" class="btn-edit" @click="deleteRow(row)">
+			<a-button type="link" :data-id="row.key" class="btn-edit" @click="()=>{
+        deleteRow(row)}">
        Delete     
 			</a-button></template>
+      <template slot="printBtn" slot-scope="row">     
+			<a-button type="link" :data-id="row.key" class="btn-edit" @click=" generateReport">
+       PRINT 
+			</a-button>
+       <div>
+     <vue-html2pdf
+        :show-layout="false"
+        :float-layout="true"
+        :enable-download="true"
+        :preview-modal="true"
+        :paginate-elements-by-height="1400"
+        :filename="student.name"
+        :pdf-quality="2"
+        :manual-pagination="false"
+        pdf-format="a4"
+        pdf-orientation="landscape"
+        pdf-content-width="800px"
+ 
+        @progress="onProgress($event)"
+        @hasGenerated="hasGenerated($event)"
+        ref="html2Pdf"
+    >
+        <section slot="pdf-content" class="pdf">
+            <!-- PDF Content Here -->
+             <div class="invoice-box">
+			<table cellpadding="0" cellspacing="0">
+				<tr class="top">
+					<td colspan="2">
+						<table>
+							<tr>
+								<td class="title">
+									<img src="images/stIsaacLogo.png" style="width: 100%; max-width: 300px" />
+								</td>
+
+								<td>
+									Invoice #: 123<br />
+									Created:{{ new Date().toDateString() }}<br />
+									
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+
+				<tr class="information">
+					<td colspan="2">
+						<table>
+							<tr>
+								<td>
+									St. Isaac Township School.<br />
+									P>O Box<br />
+									Vihiga,Kenya
+								</td>
+
+								<td>
+									{{student.name}}<br />
+									Grade:{{student.grade}}<br />
+									Term:{{row.term}}
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+
+				<tr class="heading">
+					<td>Payment Method</td>
+
+					<td>{{row.payment_method}} #</td>
+				</tr>
+
+				<tr class="details">
+					<td>{{row.payment_method}}</td>
+
+					<td>#</td>
+				</tr>
+
+				<tr class="heading">
+					<td>Item</td>
+
+					<td>Price</td>
+				</tr>
+
+				<tr class="item">
+					<td>School Fees</td>
+
+					<td>KES {{row.amount}}</td>
+				</tr>
+
+			
+				<tr class="total">
+					<td></td>
+
+					<td>Total:KES {{row.amount}}</td>
+				</tr>
+			</table>
+		</div>
+        </section>
+    </vue-html2pdf>
+   </div>
+      </template>
   </a-table>
 </template>
 <script>
 import { mapState } from "vuex";
 import VueHtml2pdf from "vue-html2pdf";
+
+
 const columns = [
   {
     title: "AMOUNT PAID",
@@ -259,6 +285,11 @@ const columns = [
 			scopedSlots: { customRender: 'deleteBtn' },
 			width: 50,
 		},
+    	{
+			title: '',
+			scopedSlots: { customRender: 'printBtn' },
+			width: 50,
+		},
 
 ];
 
@@ -276,7 +307,8 @@ export default {
       arreas:0,
       carried_forward:0,
       term:"",
-      paidamount:0
+      paidamount:0,
+      student: this.$route.params.student
     };
   },
   computed: {
@@ -339,12 +371,115 @@ export default {
               });
               this.feestructure = loadedFees;
             })
+            
     },
     deleteRow(row){
       this.$store.dispatch('deleteRecord',{
         id:row.id
       })
-    }
+    },
+      generateReport () {
+            this.$refs.html2Pdf.generatePdf()
+        },
+        onProgress(e){
+           this.$message.success(`task started.....`);
+        },
+        hasGenerated(e){
+         this.$message.success(`PDF generated successfully!`); 
+        }
   }
 };
 </script>
+<style scoped>
+	.invoice-box {
+				max-width: 800px;
+				margin: auto;
+				padding: 30px;
+				border: 1px solid #eee;
+				box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+				font-size: 16px;
+				line-height: 24px;
+				font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+				color: #555;
+			}
+
+			.invoice-box table {
+				width: 100%;
+				line-height: inherit;
+				text-align: left;
+			}
+
+			.invoice-box table td {
+				padding: 5px;
+				vertical-align: top;
+			}
+
+			.invoice-box table tr td:nth-child(2) {
+				text-align: right;
+			}
+
+			.invoice-box table tr.top table td {
+				padding-bottom: 20px;
+			}
+
+			.invoice-box table tr.top table td.title {
+				font-size: 45px;
+				line-height: 45px;
+				color: #333;
+			}
+
+			.invoice-box table tr.information table td {
+				padding-bottom: 40px;
+			}
+
+			.invoice-box table tr.heading td {
+				background: #eee;
+				border-bottom: 1px solid #ddd;
+				font-weight: bold;
+			}
+
+			.invoice-box table tr.details td {
+				padding-bottom: 20px;
+			}
+
+			.invoice-box table tr.item td {
+				border-bottom: 1px solid #eee;
+			}
+
+			.invoice-box table tr.item.last td {
+				border-bottom: none;
+			}
+
+			.invoice-box table tr.total td:nth-child(2) {
+				border-top: 2px solid #eee;
+				font-weight: bold;
+			}
+
+			@media only screen and (max-width: 600px) {
+				.invoice-box table tr.top table td {
+					width: 100%;
+					display: block;
+					text-align: center;
+				}
+
+				.invoice-box table tr.information table td {
+					width: 100%;
+					display: block;
+					text-align: center;
+				}
+			}
+
+			/** RTL **/
+			.invoice-box.rtl {
+				direction: rtl;
+				font-family: Tahoma, 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+			}
+
+			.invoice-box.rtl table {
+				text-align: right;
+			}
+
+			.invoice-box.rtl table tr td:nth-child(2) {
+				text-align: left;
+			}
+</style>
