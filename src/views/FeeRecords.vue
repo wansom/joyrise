@@ -18,7 +18,7 @@
             <a-avatar :size="74" shape="square" src="images/stIsaacLogo.png" />
             <div class="avatar-info">
               <h4 class="font-semibold m-0">total</h4>
-              <p>Votes: {{votes.length()}}</p>
+              <p>Votes: {{votes.length}}</p>
             </div>
           </a-col>
           <a-col

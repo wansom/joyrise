@@ -11,6 +11,7 @@
     </a-modal>
     <template #title>
       <h6 class="font-semibold m-0">Cast Vote</h6>
+      <button>cast</button>
     </template>
     
 
@@ -143,9 +144,12 @@ methods:{
     prev() {
       this.current--;
     },
+    logUser(){
+      console.log(this.userProfile)
+    }
 },
 computed:{
-  ...mapState(['candidates','governors','senators','womenreps'])
+  ...mapState(['candidates','governors','senators','womenreps','userProfile'])
 },
 watch:{
   getCandiate:function(){
