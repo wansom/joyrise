@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import * as fb from "../firebase";
 import router from "../router";
+const axios = require("axios");
 
 import { Api, JsonRpc } from "eosjs";
 import { JsSignatureProvider } from "eosjs/dist/eosjs-jssig";
@@ -276,6 +277,22 @@ export default new Vuex.Store({
         about: form.about
       });
       dispatch("fetchUserProfile", user);
+    },
+    //try auth0
+    tryAuth(){
+      const options = { 
+        method: "GET",
+        url: "http://path_to_your_api/",
+        headers: { "authorization": "Bearer TOKEN" },
+      };
+      
+      axios(options)
+        .then(response => {
+          console.log(response.data);
+        })
+        .catch(error => {
+          console.log(error);
+        });
     }
   },
   getters: {
