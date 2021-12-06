@@ -128,7 +128,7 @@ class EosService {
       const idthree = idone + idtwo
       console.log(values)
       invokeAction('vote',{
-        "id": idthree,
+        "id": values.id,
         "user":"warren",
         "president": values.president,
         "governor": values.governor,

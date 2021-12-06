@@ -139,6 +139,7 @@ export default {
        this.cancelImage()
        this.$store.dispatch("fetchUserProfile", result[0]);
        this.user = result[0]
+       console.log(this.user)
        
      }else{
        this.$message.error(`No user found!`); 

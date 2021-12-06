@@ -11,7 +11,6 @@
     </a-modal>
     <template #title>
       <h6 class="font-semibold m-0">Cast Vote</h6>
-      <button>cast</button>
     </template>
     
 
@@ -128,9 +127,8 @@ methods:{
                "womanrep": this.womenreps,
                "mp":this.mp,
                "senator": this.senators,
-               "mca":this.mca
-
-
+               "mca":this.mca,
+               "id":this.userProfile.id
              }).then(()=>{
           this.$message.success(` voted successfully.`);
         }).catch(err=>{

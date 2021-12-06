@@ -247,15 +247,8 @@ export default new Vuex.Store({
       }
     },
     async fetchUserProfile({ commit }, user) {
-      // fetch user profile
-      const userProfile = await fb.usersCollection
-        .doc(user.uid)
-        .get()
-        .then(docs => {
-          return docs.data();
-        });
       // set user profile in state
-      commit("setUserProfile", userProfile);
+      commit("setUserProfile", user);
     },
 // update user profile
     async updateProfile({ dispatch }, form) {
