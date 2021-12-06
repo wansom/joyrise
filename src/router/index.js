@@ -43,7 +43,7 @@ let routes = [
         },
 	},
 	{
-		path: '/feesreports',
+		path: '/results',
 		name: 'Reports',
 		layout: "dashboard",
 		component: () => import('../views/FeeRecords.vue'),
@@ -82,7 +82,7 @@ let routes = [
 		component: () => import('../views/Profile.vue'),
 	},
 		{
-		path: '/addstudent',
+		path: '/addvoter',
 		name: 'AddRecord',
 		layout:"dashboard",
 		meta: {

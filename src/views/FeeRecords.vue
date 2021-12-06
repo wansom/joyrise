@@ -18,7 +18,7 @@
             <a-avatar :size="74" shape="square" src="images/stIsaacLogo.png" />
             <div class="avatar-info">
               <h4 class="font-semibold m-0">total</h4>
-              <p>Grade: 1299</p>
+              <p>Votes: {{votes.length()}}</p>
             </div>
           </a-col>
           <a-col
@@ -26,7 +26,7 @@
             :md="12"
             style="display: flex; align-items: center; justify-content: flex-end"
           >
-            <a-button >ADD NEW RECORD</a-button>
+            <a-button >Filter Results</a-button>
           </a-col>
         </a-row>
       </template>

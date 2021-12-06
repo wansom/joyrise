@@ -52,7 +52,7 @@
         {{ text }}
       </template>
     </template>
-    <a  slot="fees"  slot-scope="record">
+    <!-- <a  slot="fees"  slot-scope="record">
 
     <router-link  :to="{name:'Feerecords', params:{student:record}}" >VIEW RECORDS</router-link>
     </a>
@@ -66,7 +66,7 @@
    <a-button type="link" :data-id="record.key" class="btn-edit" @click="deleterecord(record)">
        DELETE
 			</a-button>
-    </a>
+    </a> -->
     <p slot="expandedRowRender" slot-scope="record" style="margin: 0">
       <ul>
         <li> Mother's Name: {{ record.mother_name }}</li>
@@ -144,9 +144,9 @@ export default {
             customRender: 'customRender',
           }, },
   // { title: 'Carried Forward', dataIndex: 'carried_forward', key: 'carried_forward' },
-   { dataIndex: '', key: 'y', scopedSlots: { customRender: 'fees' }},
-  { dataIndex: '', key: 'x', scopedSlots: { customRender: 'action' }, fixed:"right" },
-   { dataIndex: '', key: 'z', scopedSlots: { customRender: 'delete' }, fixed:"right" },
+  //  { dataIndex: '', key: 'y', scopedSlots: { customRender: 'fees' }},
+  // { dataIndex: '', key: 'x', scopedSlots: { customRender: 'action' }, fixed:"right" },
+  //  { dataIndex: '', key: 'z', scopedSlots: { customRender: 'delete' }, fixed:"right" },
 ],
          searchText: '',
       searchInput: null,
