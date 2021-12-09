@@ -186,8 +186,10 @@
 							<tr>
 								<td>
 									St. Isaac Township School.<br />
-									P>O Box<br />
-									Vihiga,Kenya
+									P.O Box 58-50106<br />
+									SHIANDA,<br>
+                  Phone:0712915128
+
 								</td>
 
 								<td>
