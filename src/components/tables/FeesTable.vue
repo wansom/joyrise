@@ -151,7 +151,7 @@
         :pdf-quality="2"
         :manual-pagination="false"
         pdf-format="a8"
-        pdf-orientation="landscape"
+        pdf-orientation="portrait"
         pdf-content-width="100%"
  
         @progress="onProgress($event)"
