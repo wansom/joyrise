@@ -152,7 +152,7 @@
         :manual-pagination="false"
         pdf-format="a8"
         pdf-orientation="landscape"
-        pdf-content-width="800px"
+        pdf-content-width="100%"
  
         @progress="onProgress($event)"
         @hasGenerated="hasGenerated($event)"
